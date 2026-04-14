@@ -162,7 +162,7 @@
 <div class="overlay"></div>
 
 <div class="main-container">
-    <p class="welcome-txt">Nous avons le plaisir de vous convier au mariage de</p>
+    <p class="welcome-txt">Nous avons le plaisir de vous convier au mariage d'Ora & Samuel</p>
     <h1 class="names">Ora & Samuel</h1>
 
     <div class="countdown-container">
@@ -188,7 +188,9 @@
 </div>
 
 <script>
-    const weddingDate = new Date(2026, 5, 14, 17, 0, 0).getTime();
+    // DATE DU MARIAGE : 15 Octobre 2026 à 17:00
+    // Janvier = 0 ... Octobre = 9
+    const weddingDate = new Date(2026, 9, 15, 17, 0, 0).getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
