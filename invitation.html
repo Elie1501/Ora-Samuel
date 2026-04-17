@@ -44,16 +44,18 @@
         /* --- EFFET PARALLAX --- */
         .parallax-section {
             width: 100%;
-            height: 40vh; /* Hauteur de la photo */
-            background-image: url('images/bateau.jpg'); /* TA PHOTO ICI */
-            background-attachment: fixed; /* L'effet Parallax */
+            height: 40vh;
+            background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             margin: 20px 0;
         }
 
-        /* Pour les téléphones qui ne supportent pas bien le fixed background */
+        /* Images spécifiques pour chaque section parallax */
+        .img-bateau { background-image: url('images/bateau.jpg'); }
+        .img-alliance { background-image: url('images/regard.jpg'); } /* REMPLACEZ PAR VOTRE IMAGE */
+
         @media only screen and (max-device-width: 1366px) {
             .parallax-section {
                 background-attachment: scroll;
@@ -235,7 +237,7 @@
         .rsvp-section {
             padding: 60px 20px;
             background-color: #fdfbf9;
-            margin: 40px -20px;
+            margin: 0 -20px; /* Ajusté pour supprimer les marges blanches latérales si besoin */
         }
 
         .rsvp-form {
@@ -341,7 +343,7 @@
 
         .gallery-item:hover img { transform: scale(1.05); }
 
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; color: var(--gold); }
+        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
         .petal {
             position: fixed;
@@ -382,7 +384,7 @@
     </section>
 </div>
 
-<div class="parallax-section"></div>
+<div class="parallax-section img-bateau"></div>
 
 <div class="container">
     <section class="event-section">
@@ -421,7 +423,11 @@
             <p style="color: var(--gold); font-weight: 600; font-size: 0.95rem;">Que leurs bénédictions illuminent notre vie.</p>
         </div>
     </section>
+</div>
 
+<div class="parallax-section img-alliance"></div>
+
+<div class="container">
     <section class="rsvp-section" id="rsvp">
         <p class="label">R.S.V.P</p>
         <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
@@ -477,7 +483,6 @@
     </section>
 
     <section class="photo-gallery">
-        <p class="label" style="margin-bottom: 30px;">Nos Souvenirs</p>
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img src="images/conduite.jpg" alt="Photo Principale">
@@ -512,11 +517,13 @@
     function toggleFields(selectId, targetId) {
         const val = document.getElementById(selectId).value;
         const target = document.getElementById(targetId);
-        if (val === 'oui') {
-            target.classList.add('active');
-        } else {
-            target.classList.remove('active');
-            target.querySelectorAll('input').forEach(input => input.value = 0);
+        if (target) {
+            if (val === 'oui') {
+                target.classList.add('active');
+            } else {
+                target.classList.remove('active');
+                target.querySelectorAll('input').forEach(input => input.value = 0);
+            }
         }
     }
 
