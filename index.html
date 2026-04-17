@@ -3,546 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Invitation | Ora & Samuel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <title>Ora & Samuel | 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #C5A059;
-            --text-dark: #1a1a1a;
-            --bg-light: #ffffff;
+            --luxury-gold: #E3D4B6;
+            --white-trans: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(12px);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+        body, html {
+            height: 100%;
             font-family: 'Montserrat', sans-serif;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            background-color: #fff; /* Fond de destination (le papier) */
+            overflow: hidden;
+            color: #fff;
+            perspective: 2000px; /* Nécessaire pour l'effet 3D */
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Le conteneur qui va pivoter comme une couverture */
+        .book-cover {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 10;
+            transform-origin: left center; /* Point de pivot à gauche */
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
         }
 
-        .hero-image {
-            width: 100%;
-            height: 45vh;
-            background: url('images/loin.jpg') no-repeat center center / cover;
-            position: relative;
+        /* Animation de la page qui se tourne */
+        body.page-turned .book-cover {
+            transform: rotateY(-110deg); /* Tourne vers la gauche */
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .hero-overlay {
+        .bg-image {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('images/saut.jpg') no-repeat 10% center / cover;
+            z-index: -1;
+            opacity: 0.65;
+            animation: slowZoom 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1.02); }
+            to { transform: scale(1.12); }
+        }
+
+        .overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, var(--bg-light) 95%);
+            background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.8) 100%);
+            z-index: 0;
         }
 
-        /* --- EFFET PARALLAX --- */
-        .parallax-section {
-            width: 100%;
-            height: 40vh;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin: 20px 0;
-        }
-
-        /* Images spécifiques pour chaque section parallax */
-        .img-bateau { background-image: url('images/bateau.jpg'); }
-        .img-alliance { background-image: url('images/alliance.jpg'); } /* REMPLACEZ PAR VOTRE IMAGE */
-
-        @media only screen and (max-device-width: 1366px) {
-            .parallax-section {
-                background-attachment: scroll;
-            }
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .content-wrapper {
+            position: relative;
+            z-index: 11;
             text-align: center;
+            padding: 20px;
         }
 
-        .main-names {
+        .welcome-txt {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem;
-            font-weight: 300;
             font-style: italic;
-            margin: -25px 0 20px;
-            position: relative;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        .luxury-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 40px;
-            width: 80%;
-            opacity: 0;
-            animation: fadeInUp 1.2s ease-out 0.4s forwards;
-        }
-
-        .luxury-divider::before, .luxury-divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-        }
-
-        .divider-symbol {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin: 0 15px;
-            font-style: italic;
-        }
-
-        .event-section {
-            padding: 50px 0;
-            border-top: 1px solid #f5f5f5;
-        }
-
-        .label {
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--gold);
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            letter-spacing: 1px;
             margin-bottom: 15px;
-        }
-
-        .event-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.4rem;
+            color: var(--luxury-gold);
             font-weight: 300;
-            margin-bottom: 10px;
         }
 
-        .families-wrapper {
+        .names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 14vw, 6.5rem);
+            margin-bottom: 45px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1;
+            background: linear-gradient(to bottom, #ffffff 30%, var(--luxury-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .countdown-container { display: flex; gap: 15px; margin-bottom: 60px; justify-content: center; }
+
+        .countdown-box {
+            width: clamp(75px, 20vw, 95px);
+            height: clamp(85px, 22vw, 105px);
+            background: var(--white-trans);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(227, 212, 182, 0.15);
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin: 30px 0 20px;
-            width: 100%;
-        }
-
-        .family-left { width: 48%; text-align: left; }
-        .family-right { width: 48%; text-align: right; }
-
-        .family-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-
-        .parents-names {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            line-height: 1.2;
-            margin-bottom: 4px;
-        }
-
-        .announcement-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            font-style: italic;
-            color: #555;
-            margin: 0 0 40px;
-            padding: 0 10px;
-        }
-
-        .intro-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-style: italic;
-            margin: 15px 0;
-            color: #444;
-            line-height: 1.4;
-        }
-
-        .tribute-card {
-            background-color: #fafafa;
-            border-radius: 4px;
-            padding: 25px 15px;
-            margin: 35px auto 20px;
-            max-width: 90%;
-            border-left: 1px solid var(--gold);
-            border-right: 1px solid var(--gold);
-        }
-
-        .tribute-card p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            color: var(--text-dark);
-            margin: 0;
-        }
-
-        .hebrew {
-            font-size: 2.5rem;
-            margin: 10px 0;
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--gold);
-        }
-
-        .details {
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .address {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.25rem;
-            color: #666;
-            margin-bottom: 25px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
         }
 
-        .btn {
-            padding: 12px 20px;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            min-width: 110px;
-            cursor: pointer;
-            background: none;
-            transition: 0.3s;
-        }
+        .count-num { font-size: clamp(1.6rem, 5vw, 2.3rem); font-family: 'Cormorant Garamond', serif; }
+        .count-label { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 3px; color: var(--luxury-gold); }
 
-        .btn:hover { background: var(--gold); color: white; }
-
-        .rsvp-section {
-            padding: 60px 20px;
-            background-color: #fdfbf9;
-            margin: 0 -20px; /* Ajusté pour supprimer les marges blanches latérales si besoin */
-        }
-
-        .rsvp-form {
-            max-width: 450px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .form-group { margin-bottom: 25px; }
-
-        .form-label {
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-bottom: 1px solid #ddd;
+        .enter-btn {
             background: transparent;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .form-row div { flex: 1; }
-
-        .hidden-fields {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease-in-out;
-            opacity: 0;
-        }
-
-        .hidden-fields.active {
-            max-height: 250px;
-            opacity: 1;
-            margin-bottom: 25px;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background-color: var(--gold);
-            color: white;
-            border: none;
+            border: 1px solid rgba(227, 212, 182, 0.4);
+            padding: 20px 60px;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 6px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.8rem;
-            margin-top: 30px;
             cursor: pointer;
-            font-weight: 600;
+            transition: 0.6s;
+            backdrop-filter: blur(5px);
         }
 
-        .photo-gallery {
-            padding: 60px 15px;
-            background: #ffffff;
+        .enter-btn:hover {
+            background: rgba(227, 212, 182, 0.1);
+            letter-spacing: 8px;
+            border-color: var(--luxury-gold);
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 12px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .gallery-item:first-child {
-            grid-column: span 2;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img { transform: scale(1.05); }
-
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
-
-        .petal {
-            position: fixed;
-            background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%);
-            border-radius: 150% 0 150% 0;
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: 100;
-        }
-        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
-<div class="hero-image"><div class="hero-overlay"></div></div>
+<div class="book-cover" id="bookCover">
+    <div class="bg-image"></div>
+    <div class="overlay"></div>
 
-<div class="container">
-    <h1 class="main-names">Ora & Samuel</h1>
+    <div class="content-wrapper">
+        <p class="welcome-txt">Nous avons le plaisir de vous convier au mariage de</p>
+        <h1 class="names">Ora & Samuel</h1>
 
-    <div class="luxury-divider">
-        <span class="divider-symbol">✧</span>
+        <div class="countdown-container">
+            <div class="countdown-box"><span class="count-num" id="days">00</span><span class="count-label">Jours</span></div>
+            <div class="countdown-box"><span class="count-num" id="hours">00</span><span class="count-label">Heures</span></div>
+            <div class="countdown-box"><span class="count-num" id="minutes">00</span><span class="count-label">Min</span></div>
+            <div class="countdown-box"><span class="count-num" id="seconds">00</span><span class="count-label">Sec</span></div>
+        </div>
+
+        <a href="#" onclick="turnPage(event)" class="enter-btn">Découvrir</a>
     </div>
-
-    <section class="event-section" style="border-top: none;">
-        <p class="label">Union Civile</p>
-        <h2 class="event-title">La Mairie</h2>
-        <p class="details">MERCREDI 6 MAI 2026 À 14H30</p>
-        <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
-        <div class="btn-group">
-            <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
-            <a href="#" class="btn">Calendrier</a>
-        </div>
-        <div style="margin-top: 40px;">
-            <p class="label" style="font-size: 0.6rem;">Vin d'honneur</p>
-            <p class="address" style="font-size: 1.1rem;">Centre Bérechit<br>74 Avenue Paul Valéry, 95200 Sarcelles</p>
-            <a href="https://waze.com/ul?q=Centre+Berechit+Sarcelles" class="btn" target="_blank">Waze</a>
-        </div>
-    </section>
-</div>
-
-<div class="parallax-section img-bateau"></div>
-
-<div class="container">
-    <section class="event-section">
-        <p class="label">Cérémonie Religieuse</p>
-        <h2 class="event-title">Houppa & Soirée</h2>
-        <div class="families-wrapper">
-            <div class="family-left">
-                <p class="family-title">Famille NABET</p>
-                <p class="parents-names">M. & Mme Carole</p>
-                <p class="parents-names">et Moshé NABET</p>
-            </div>
-            <div class="family-right">
-                <p class="family-title">Famille ATTARD & ASCOLI</p>
-                <p class="parents-names">M. & Mme ATTARD</p>
-                <p class="parents-names">M. & Mme ASCOLI</p>
-            </div>
-        </div>
-        <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
-        <div class="hebrew">אורה & שמואל</div>
-        <p class="intro-text">Seront honorés de votre présence à la cérémonie religieuse qui sera célébrée Bé’ézrat Hachem le</p>
-        <p class="details">MARDI 12 MAI 2026 À 17H30</p>
-        <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
-
-        <div class="btn-group">
-            <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
-            <a href="#" class="btn">Calendrier</a>
-        </div>
-
-        <div class="tribute-card">
-            <p style="font-style: italic; font-weight: 600; margin-bottom: 10px;">Une pensée très émue pour nos disparus</p>
-            <p style="color: #555; line-height: 1.6; font-size: 1rem; margin-bottom: 10px;">
-                Liliane Ascoli, Alfred Ascoli, Georges Attard, Georgette Attard,<br>
-                et nos grands-parents Jean-Jacques Nabet et Jossiane Nabet<br>
-                qui nous manqueront tant en ce jour unique.
-            </p>
-            <p style="color: var(--gold); font-weight: 600; font-size: 0.95rem;">Que leurs bénédictions illuminent notre vie.</p>
-        </div>
-    </section>
-</div>
-
-<div class="parallax-section img-alliance"></div>
-
-<div class="container">
-    <section class="rsvp-section" id="rsvp">
-        <p class="label">R.S.V.P</p>
-        <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
-        <form class="rsvp-form" id="rsvp-form">
-            <div class="form-group">
-                <label class="form-label">Nom et Prénom</label>
-                <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Présence à la Mairie</label>
-                <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
-                    <option value="oui">Sera présent avec joie</option>
-                    <option value="non">Ne pourra pas assister à la cérémonie</option>
-                </select>
-            </div>
-            <div id="sec_m" class="hidden-fields active">
-                <div class="form-row">
-                    <div>
-                        <label class="form-label">Adultes (Mairie)</label>
-                        <input type="number" name="adultes_m" class="form-input" value="1" min="0">
-                    </div>
-                    <div>
-                        <label class="form-label">Enfants (Mairie)</label>
-                        <input type="number" name="enfants_m" class="form-input" value="0" min="0">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Présence à la Houppa</label>
-                <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
-                    <option value="oui">Sera présent avec bonheur</option>
-                    <option value="non">Regrette de ne pas pouvoir être présent</option>
-                </select>
-            </div>
-            <div id="sec_h" class="hidden-fields active">
-                <div class="form-row">
-                    <div>
-                        <label class="form-label">Adultes (Houppa)</label>
-                        <input type="number" name="adultes_h" class="form-input" value="1" min="0">
-                    </div>
-                    <div>
-                        <label class="form-label">Enfants (Houppa)</label>
-                        <input type="number" name="enfants_h" class="form-input" value="0" min="0">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Un petit mot pour les mariés</label>
-                <textarea name="message" class="form-textarea" placeholder="Vos vœux de bonheur..."></textarea>
-            </div>
-            <button type="submit" class="submit-btn" id="subBtn">Envoyer ma réponse</button>
-        </form>
-    </section>
-
-    <section class="photo-gallery">
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="images/conduite.jpg" alt="Photo Principale">
-            </div>
-            <div class="gallery-item">
-                <img src="images/haut.jpg" alt="Photo 1">
-            </div>
-            <div class="gallery-item">
-                <img src="images/part.jpg" alt="Photo 2">
-            </div>
-        </div>
-    </section>
-
-    <footer>O & S — 2026</footer>
 </div>
 
 <script>
-    function createPetal() {
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
-        const size = Math.random() * 8 + 5;
-        petal.style.width = size + 'px';
-        petal.style.height = size * 1.5 + 'px';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.top = '-20px';
-        petal.style.animation = `fall ${Math.random() * 3 + 4}s linear forwards`;
-        document.body.appendChild(petal);
-        setTimeout(() => petal.remove(), 7000);
-    }
-    setInterval(createPetal, 450);
-
-    function toggleFields(selectId, targetId) {
-        const val = document.getElementById(selectId).value;
-        const target = document.getElementById(targetId);
-        if (target) {
-            if (val === 'oui') {
-                target.classList.add('active');
-            } else {
-                target.classList.remove('active');
-                target.querySelectorAll('input').forEach(input => input.value = 0);
-            }
+    // Countdown
+    const weddingDate = new Date(2026, 4, 12, 17, 30, 0).getTime();
+    function updateCountdown() {
+        const diff = weddingDate - new Date().getTime();
+        if (diff > 0) {
+            document.getElementById('days').innerText = Math.floor(diff / 86400000);
+            document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000);
+            document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000);
+            document.getElementById('seconds').innerText = Math.floor((diff % 60000) / 1000);
         }
     }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-    window.onload = function() {
-        toggleFields('pres_m', 'sec_m');
-        toggleFields('pres_h', 'sec_h');
-    };
-
-    document.getElementById('rsvp-form').onsubmit = function(e) {
+    // Effet Page de Livre
+    function turnPage(e) {
         e.preventDefault();
-        const btn = document.getElementById('subBtn');
-        btn.innerText = "ENVOI EN COURS...";
-        btn.disabled = true;
-        setTimeout(() => {
-            alert('Merci ! Votre réponse a bien été enregistrée.');
-            btn.innerText = "ENVOYÉ !";
-        }, 1500);
-    };
-</script>
 
+        // On déclenche la rotation 3D
+        document.body.classList.add('page-turned');
+
+        // Redirection après la fin de l'animation
+        setTimeout(() => {
+            window.location.href = "invitation.html";
+        }, 1300);
+    }
+</script>
 </body>
 </html>
