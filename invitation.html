@@ -9,26 +9,25 @@
         :root {
             --gold: #C5A059;
             --text-dark: #1a1a1a;
-            --bg-light: #F9F7F2;
-            --bg-section: #F2EFE9;
+            --bg-light: #f4f1ea;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- FOND MARBRE AVEC VEINES ALÉATOIRES (4 TRAITS) --- */
+        /* --- FOND MARBRE ACCENTUÉ POUR MOBILE --- */
         body {
-            background-color: #f4f1ea;
+            background-color: var(--bg-light);
             background-image:
-                /* Trait 1 : Fin et incliné (Haut Gauche) */
-                    linear-gradient(35deg, transparent 20%, rgba(197, 160, 89, 0.04) 21%, rgba(197, 160, 89, 0.06) 22%, transparent 25%),
-                        /* Trait 2 : Principal (Milieu Droit) */
-                    linear-gradient(125deg, transparent 65%, rgba(197, 160, 89, 0.07) 68%, rgba(197, 160, 89, 0.1) 70%, transparent 55%),
-                        /* Trait 3 : Très léger et horizontal (Bas) */
-                    linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.03) 82%, transparent 45%),
-                        /* Trait 4 : Veine grise subtile (Verticale Gauche) */
-                    linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.02) 12%, transparent 15%),
-                        /* Texture de grain générale */
-                    linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.01) 45%, transparent 90%);
+                /* Veine 1 : Or marquée */
+                linear-gradient(35deg, transparent 18%, rgba(197, 160, 89, 0.2) 20%, rgba(197, 160, 89, 0.3) 21%, transparent 24%),
+                /* Veine 2 : Diagonale longue */
+                linear-gradient(125deg, transparent 60%, rgba(197, 160, 89, 0.15) 65%, rgba(197, 160, 89, 0.25) 67%, transparent 72%),
+                /* Veine 3 : Trait de roche sombre subtil */
+                linear-gradient(170deg, transparent 75%, rgba(80, 70, 50, 0.15) 78%, transparent 82%),
+                /* Veine 4 : Veine grise croisée */
+                linear-gradient(15deg, transparent 8%, rgba(0, 0, 0, 0.08) 10%, rgba(0, 0, 0, 0.12) 11%, transparent 14%),
+                /* Halo pour faire ressortir les veines sur les bords */
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
             background-attachment: fixed;
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
@@ -53,7 +52,7 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, #f4f1ea 95%);
+            background: linear-gradient(to bottom, transparent 50%, var(--bg-light) 95%);
         }
 
         .parallax-section {
@@ -83,11 +82,10 @@
 
         .main-names {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem;
+            font-size: clamp(2.5rem, 10vw, 3.2rem);
             font-weight: 300;
             font-style: italic;
             margin: -25px 0 20px;
-            padding-left: 55px;
             position: relative;
             animation: fadeInUp 1.2s ease-out;
             color: var(--text-dark);
@@ -115,15 +113,16 @@
             color: var(--gold);
             font-size: 1.5rem;
             margin: 0 15px;
-            font-style: italic;
         }
 
+        /* --- SECTIONS PLUS TRANSPARENTES POUR VOIR LE MARBRE --- */
         .event-section {
-            padding: 50px 0;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(2px);
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
-            margin-bottom: 20px;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.3); /* Transparence accrue */
+            backdrop-filter: blur(1.5px);
+            border-top: 1px solid rgba(197, 160, 89, 0.15);
+            margin-bottom: 25px;
+            border-radius: 4px;
         }
 
         .label {
@@ -132,6 +131,7 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .event-title {
@@ -148,13 +148,11 @@
             margin: 0 auto 30px;
             display: block;
             mix-blend-mode: multiply;
-            filter: contrast(1.1);
         }
 
         .families-wrapper {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
             margin: 30px 0 20px;
             width: 100%;
         }
@@ -174,43 +172,25 @@
         .parents-names {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.2;
-            margin-bottom: 4px;
-        }
-
-        .announcement-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            font-style: italic;
-            color: #555;
-            margin: 0 0 40px;
+            color: #333;
         }
 
         .hebrew {
             font-size: 2.5rem;
-            margin: 10px 0;
+            margin: 15px 0;
             font-family: 'Cormorant Garamond', serif;
             color: var(--gold);
-        }
-
-        .details {
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
         }
 
         .address {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.25rem;
-            color: #666;
+            font-size: 1.2rem;
+            color: #555;
             margin-bottom: 25px;
         }
-
-        .btn-group { display: flex; gap: 10px; justify-content: center; }
 
         .btn {
             padding: 12px 20px;
@@ -220,66 +200,34 @@
             font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            min-width: 110px;
-            cursor: pointer;
-            background: transparent;
-            transition: 0.3s;
+            display: inline-block;
+            background: rgba(255,255,255,0.4);
+            font-weight: 600;
         }
 
-        .btn:hover { background: var(--gold); color: white; }
-
         .tribute-card {
-            background-color: rgba(253, 253, 252, 0.8);
-            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.6);
             padding: 25px 15px;
             margin: 35px auto 20px;
-            max-width: 90%;
             border-left: 1px solid var(--gold);
             border-right: 1px solid var(--gold);
         }
 
-        /* --- FORMULAIRE --- */
         .rsvp-section {
             padding: 60px 20px;
             background-color: rgba(242, 239, 233, 0.8);
             margin: 0 -20px;
         }
 
-        .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
-
-        .form-label {
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
         .form-input, .form-select, .form-textarea {
             width: 100%;
             padding: 12px 0;
             border: none;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid var(--gold);
             background: transparent;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-dark);
             outline: none;
-        }
-
-        .hidden-fields {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease-in-out;
-            opacity: 0;
-        }
-
-        .hidden-fields.active {
-            max-height: 250px;
-            opacity: 1;
-            margin-bottom: 25px;
         }
 
         .submit-btn {
@@ -291,63 +239,42 @@
             border: none;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: 0.8rem;
-            margin-top: 30px;
-            cursor: pointer;
             font-weight: 600;
+            margin-top: 30px;
         }
 
-        /* --- GALERIE PHOTOS --- */
-        .photo-gallery {
-            padding: 60px 15px;
-        }
-
+        .photo-gallery { padding: 60px 15px; }
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 12px;
-            max-width: 500px;
-            margin: 0 auto;
         }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
+        .gallery-item { border-radius: 4px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .gallery-item:first-child { grid-column: span 2; }
+        .gallery-item img { width: 100%; display: block; }
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); font-weight: 600;}
+
+        #music-control {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
+        .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
+        #pause-icon { display: none; }
+        .playing #pause-icon { display: block; }
+        .playing #play-icon { display: none; }
 
         .petal {
             position: fixed;
-            background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--gold) 100%);
             border-radius: 150% 0 150% 0;
-            opacity: 0.3;
+            opacity: 0.4;
             pointer-events: none;
             z-index: 100;
         }
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
-
-        #music-control {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
-            border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
-        .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
-        #pause-icon { display: none; }
-        .playing #play-icon { display: none; }
-        .playing #pause-icon { display: block; }
     </style>
 </head>
 <body>
@@ -368,11 +295,10 @@
     <section class="event-section" style="border-top: none;">
         <p class="label">Union Civile</p>
         <h2 class="event-title">La Mairie</h2>
-        <p class="details">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
+        <p class="details" style="font-weight: 600; letter-spacing: 1px;">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
         <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
-            <a href="#" class="btn">Calendrier</a>
         </div>
     </section>
 </div>
@@ -398,18 +324,10 @@
         </div>
         <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
         <div class="hebrew">אורה & שמואל</div>
-        <p class="details">JEUDI 15 OCTOBRE 2026 À 17H30</p>
+        <p class="details" style="font-weight: 600; letter-spacing: 1px;">JEUDI 15 OCTOBRE 2026 À 17H30</p>
         <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
-            <a href="#" class="btn">Calendrier</a>
-        </div>
-        <div class="tribute-card">
-            <p style="font-style: italic; font-weight: 600; margin-bottom: 10px;">Une pensée très émue pour nos disparus</p>
-            <p style="color: #555; line-height: 1.6; font-size: 1rem;">
-                Liliane Ascoli, Alfred Ascoli, Georges Attard, Georgette Attard,<br>
-                et nos grands-parents Jean-Jacques Nabet et Jossiane Nabet
-            </p>
         </div>
     </section>
 </div>
@@ -419,55 +337,38 @@
 <div class="container">
     <section class="rsvp-section" id="rsvp">
         <p class="label">R.S.V.P</p>
-        <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
+        <h2 class="event-title">Confirmation</h2>
         <form class="rsvp-form" id="rsvp-form">
-            <div class="form-group">
-                <label class="form-label">Nom et Prénom</label>
-                <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" style="margin-top:20px;">Présence à la Mairie</label>
-                <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
-                    <option value="oui">Sera présent avec joie</option>
-                    <option value="non">Ne pourra pas assister</option>
-                </select>
-            </div>
+            <input type="text" name="nom" class="form-input" placeholder="Votre Nom et Prénom" required>
+            
+            <label class="form-label" style="margin-top:25px;">Présence Mairie</label>
+            <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
+                <option value="oui">Sera présent(e)</option>
+                <option value="non">Ne pourra pas être présent(e)</option>
+            </select>
+            
             <div id="sec_m" class="hidden-fields">
-                <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;">
-                        <label class="form-label">Adultes</label>
-                        <input type="number" name="adultes_m" class="form-input" value="1" min="0">
-                    </div>
-                    <div style="flex:1;">
-                        <label class="form-label">Enfants</label>
-                        <input type="number" name="enfants_m" class="form-input" value="0" min="0">
-                    </div>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <input type="number" name="adultes_m" class="form-input" placeholder="Nombre Adultes" value="1">
+                    <input type="number" name="enfants_m" class="form-input" placeholder="Nombre Enfants" value="0">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="form-label" style="margin-top:20px;">Présence à la Houppa</label>
-                <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
-                    <option value="oui">Sera présent avec bonheur</option>
-                    <option value="non">Regrette de ne pas pouvoir</option>
-                </select>
-            </div>
+
+            <label class="form-label" style="margin-top:25px;">Présence Houppa</label>
+            <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
+                <option value="oui">Sera présent(e)</option>
+                <option value="non">Ne pourra pas être présent(e)</option>
+            </select>
+
             <div id="sec_h" class="hidden-fields">
-                <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;">
-                        <label class="form-label">Adultes</label>
-                        <input type="number" name="adultes_h" class="form-input" value="1" min="0">
-                    </div>
-                    <div style="flex:1;">
-                        <label class="form-label">Enfants</label>
-                        <input type="number" name="enfants_h" class="form-input" value="0" min="0">
-                    </div>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <input type="number" name="adultes_h" class="form-input" placeholder="Nombre Adultes" value="1">
+                    <input type="number" name="enfants_h" class="form-input" placeholder="Nombre Enfants" value="0">
                 </div>
             </div>
-            <div class="form-group" style="margin-top:20px;">
-                <label class="form-label">Un petit mot pour les mariés</label>
-                <textarea name="message" class="form-textarea" placeholder="Vos vœux de bonheur..."></textarea>
-            </div>
-            <button type="submit" class="submit-btn" id="subBtn">Envoyer ma réponse</button>
+
+            <textarea name="message" class="form-textarea" placeholder="Votre message..." style="margin-top:20px;"></textarea>
+            <button type="submit" class="submit-btn" id="subBtn">Envoyer</button>
         </form>
     </section>
 
@@ -497,10 +398,7 @@
         else target.classList.remove('active');
     }
 
-    window.onload = () => {
-        toggleFields('pres_m', 'sec_m');
-        toggleFields('pres_h', 'sec_h');
-    };
+    window.onload = () => { toggleFields('pres_m', 'sec_m'); toggleFields('pres_h', 'sec_h'); };
 
     function createPetal() {
         const petal = document.createElement('div');
@@ -518,9 +416,8 @@
 
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
-        const btn = document.getElementById('subBtn');
-        btn.innerText = "ENVOI EN COURS...";
-        setTimeout(() => { alert('Merci ! Votre réponse a bien été enregistrée.'); btn.innerText = "ENVOYÉ !"; }, 1500);
+        document.getElementById('subBtn').innerText = "ENVOI EN COURS...";
+        setTimeout(() => { alert('Merci !'); document.getElementById('subBtn').innerText = "ENVOYÉ !"; }, 1500);
     };
 </script>
 </body>
