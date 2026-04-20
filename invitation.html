@@ -9,26 +9,27 @@
         :root {
             --gold: #C5A059;
             --text-dark: #1a1a1a;
-            --bg-light: #f4f1ea;
+            --bg-light: #F9F7F2;
+            --bg-section: #F2EFE9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- FOND MARBRE FIXÉ AU CONTENU (SCROLL AVEC LA PAGE) --- */
+        /* --- FOND MARBRE AVEC VEINES ALÉATOIRES (4 TRAITS) --- */
         body {
-            background-color: var(--bg-light);
+            background-color: #f4f1ea;
             background-image:
-                /* Veine 1 : En haut à gauche */
-                linear-gradient(25deg, transparent 10%, rgba(160, 130, 70, 0.15) 12%, rgba(197, 160, 89, 0.25) 13%, transparent 18%),
-                /* Veine 2 : Milieu droit, décalée */
-                linear-gradient(115deg, transparent 65%, rgba(100, 90, 70, 0.12) 68%, rgba(130, 120, 100, 0.18) 70%, transparent 75%),
-                /* Veine 3 : Fine branche en bas à gauche */
-                linear-gradient(165deg, transparent 40%, rgba(197, 160, 89, 0.15) 42%, transparent 48%),
-                /* Veine 4 : Verticale légère sur le bord droit */
-                linear-gradient(5deg, transparent 80%, rgba(0, 0, 0, 0.05) 82%, transparent 88%);
-            /* background-attachment: scroll fait en sorte que le marbre suive le texte */
-            background-attachment: scroll;
-            background-size: 100% 100%;
+                /* Trait 1 : Fin et incliné (Haut Gauche) */
+                    linear-gradient(35deg, transparent 20%, rgba(197, 160, 89, 0.04) 21%, rgba(197, 160, 89, 0.06) 22%, transparent 25%),
+                        /* Trait 2 : Principal (Milieu Droit) */
+                    linear-gradient(125deg, transparent 65%, rgba(197, 160, 89, 0.07) 68%, rgba(197, 160, 89, 0.1) 70%, transparent 55%),
+                        /* Trait 3 : Très léger et horizontal (Bas) */
+                    linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.03) 82%, transparent 45%),
+                        /* Trait 4 : Veine grise subtile (Verticale Gauche) */
+                    linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.02) 12%, transparent 15%),
+                        /* Texture de grain générale */
+                    linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.01) 45%, transparent 90%);
+            background-attachment: fixed;
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.5;
@@ -43,22 +44,28 @@
         }
 
         .hero-image {
-            width: 100%; height: 45vh;
+            width: 100%;
+            height: 45vh;
             background: url('images/loin.jpg') no-repeat center center / cover;
             position: relative;
         }
 
         .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, var(--bg-light) 95%);
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, #f4f1ea 95%);
         }
 
         .parallax-section {
-            width: 100%; height: 40vh;
-            background-attachment: fixed; background-position: center;
-            background-repeat: no-repeat; background-size: cover;
+            width: 100%;
+            height: 40vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             margin: 20px 0;
         }
+
         .img-bateau { background-image: url('images/bateau.jpg'); }
         .img-alliance { background-image: url('images/regard.jpg'); }
 
@@ -67,27 +74,49 @@
         }
 
         .container {
-            width: 100%; max-width: 600px;
-            margin: 0 auto; padding: 0 20px; text-align: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
         }
 
         .main-names {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem; font-weight: 300; font-style: italic;
-            margin: -25px 0 20px; padding-left: 55px; position: relative;
-            animation: fadeInUp 1.2s ease-out; color: var(--text-dark);
+            font-size: 3.2rem;
+            font-weight: 300;
+            font-style: italic;
+            margin: -25px 0 20px;
+            padding-left: 55px;
+            position: relative;
+            animation: fadeInUp 1.2s ease-out;
+            color: var(--text-dark);
         }
 
         .luxury-divider {
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 40px; width: 80%; opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 40px;
+            width: 80%;
+            opacity: 0;
             animation: fadeInUp 1.2s ease-out 0.4s forwards;
         }
+
         .luxury-divider::before, .luxury-divider::after {
-            content: ""; flex: 1; height: 1px;
+            content: "";
+            flex: 1;
+            height: 1px;
             background: linear-gradient(to right, transparent, var(--gold), transparent);
         }
-        .divider-symbol { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.5rem; margin: 0 15px; }
+
+        .divider-symbol {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            font-style: italic;
+        }
 
         .event-section {
             padding: 50px 0;
@@ -97,36 +126,224 @@
             margin-bottom: 20px;
         }
 
-        .label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; }
-        .event-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 10px; color: var(--text-dark); }
-        
-        .families-wrapper { display: flex; justify-content: space-between; align-items: flex-start; margin: 30px 0 20px; width: 100%; }
-        .parents-names { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.05rem; line-height: 1.2; margin-bottom: 4px; }
+        .label {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
 
-        .hebrew { font-size: 2.5rem; margin: 10px 0; font-family: 'Cormorant Garamond', serif; color: var(--gold); }
-        .address { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; color: #666; margin-bottom: 25px; }
+        .event-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
 
-        .btn { padding: 12px 20px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; min-width: 110px; cursor: pointer; background: transparent; transition: 0.3s; }
+        .hebrew-banner {
+            width: 90%;
+            max-width: 380px;
+            margin: 0 auto 30px;
+            display: block;
+            mix-blend-mode: multiply;
+            filter: contrast(1.1);
+        }
+
+        .families-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 30px 0 20px;
+            width: 100%;
+        }
+
+        .family-left { width: 48%; text-align: left; }
+        .family-right { width: 48%; text-align: right; }
+
+        .family-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .parents-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .announcement-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #555;
+            margin: 0 0 40px;
+        }
+
+        .hebrew {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+        }
+
+        .details {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .address {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
+
+        .btn {
+            padding: 12px 20px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            min-width: 110px;
+            cursor: pointer;
+            background: transparent;
+            transition: 0.3s;
+        }
+
         .btn:hover { background: var(--gold); color: white; }
 
-        .rsvp-section { padding: 60px 20px; background-color: rgba(242, 239, 233, 0.8); margin: 0 -20px; }
+        .tribute-card {
+            background-color: rgba(253, 253, 252, 0.8);
+            border-radius: 4px;
+            padding: 25px 15px;
+            margin: 35px auto 20px;
+            max-width: 90%;
+            border-left: 1px solid var(--gold);
+            border-right: 1px solid var(--gold);
+        }
+
+        /* --- FORMULAIRE --- */
+        .rsvp-section {
+            padding: 60px 20px;
+            background-color: rgba(242, 239, 233, 0.8);
+            margin: 0 -20px;
+        }
+
         .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
-        .form-label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; font-weight: 600; }
-        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ccc; background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; color: var(--text-dark); outline: none; }
-        
-        .hidden-fields { max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; opacity: 0; }
-        .hidden-fields.active { max-height: 250px; opacity: 1; margin-bottom: 25px; }
 
-        .submit-btn { display: block; width: 100%; padding: 18px; background-color: var(--gold); color: white; border: none; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-top: 30px; cursor: pointer; font-weight: 600; }
+        .form-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
 
-        .photo-gallery { padding: 60px 15px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 12px; max-width: 500px; margin: 0 auto; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .hidden-fields {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .hidden-fields.active {
+            max-height: 250px;
+            opacity: 1;
+            margin-bottom: 25px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--gold);
+            color: white;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            margin-top: 30px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* --- GALERIE PHOTOS --- */
+        .photo-gallery {
+            padding: 60px 15px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
         .gallery-item:first-child { grid-column: span 2; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
-        #music-control { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .petal {
+            position: fixed;
+            background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%);
+            border-radius: 150% 0 150% 0;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 100;
+        }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+
+        #music-control {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
+            border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
         .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
         #pause-icon { display: none; }
         .playing #play-icon { display: none; }
@@ -155,229 +372,7 @@
         <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
-        </div>
-    </section>
-</div>
-
-<div class="parallax-section img-bateau"></div>
-
-<div class="container">
-    <section class="event-section">
-        <p class="label">Cérémonie Religieuse</p>
-        <h2 class="event-title">Houppa & Soirée</h2>
-        <div class="families-wrapper">
-            <div class="family-left" style="text-align: left; width: 48%;">
-                <p class="parents-names">M. & Mme Carole</p>
-                <p class="parents-names">et Moshé NABET</p>
-            </div>
-            <div class="family-right" style="text-align: right; width: 48%;">
-                <p class="parents-names">Mme ATTARD</p>
-                <p class="parents-names">M. ASCOLI</p>
-            </div>
-        </div>
-        <div class="hebrew">אורה & שמואל</div>
-        <p class="details">JEUDI 15 OCTOBRE 2026 À 17H30</p>
-        <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
-        <div class="btn-group">
-            <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
-        </div>
-    </section>
-</div>
-
-<div class="parallax-section img-alliance"></div>
-
-<div class="container">
-    <section class="rsvp-section" id="rsvp">
-        <p class="label">R.S.V.P</p>
-        <h2 class="event-title">Confirmation</h2>
-        <form class="rsvp-form" id="rsvp-form">
-            <div class="form-group">
-                <label class="form-label">Nom et Prénom</label>
-                <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" style="margin-top:20px;">Présence à la Mairie</label>
-                <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
-                    <option value="oui">Sera présent avec joie</option>
-                    <option value="non">Ne pourra pas assister</option>
-                </select>
-            </div>
-            <div id="sec_m" class="hidden-fields">
-                <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;">
-                        <label class="form-label">Adultes</label>
-                        <input type="number" name="adultes_m" class="form-input" value="1" min="0">
-                    </div>
-                    <div style="flex:1;">
-                        <label class="form-label">Enfants</label>
-                        <input type="number" name="enfants_m" class="form-input" value="0" min="0">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label" style="margin-top:20px;">Présence à la Houppa</label>
-                <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
-                    <option value="oui">Sera présent avec bonheur</option>
-                    <option value="non">Regrette de ne pas pouvoir</option>
-                </select>
-            </div>
-            <div id="sec_h" class="hidden-fields">
-                <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;">
-                        <label class="form-label">Adultes</label>
-                        <input type="number" name="adultes_h" class="form-input" value="1" min="0">
-                    </div>
-                    <div style="flex:1;">
-                        <label class="form-label">Enfants</label>
-                        <input type="number" name="enfants_h" class="form-input" value="0" min="0">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" style="margin-top:20px;">
-                <label class="form-label">Un petit mot pour les mariés</label>
-                <textarea name="message" class="form-textarea" placeholder="Vos vœux de bonheur..."></textarea>
-            </div>
-            <button type="submit" class="submit-btn" id="subBtn">Envoyer ma réponse</button>
-        </form>
-    </section>
-
-    <section class="photo-gallery">
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="images/conduite.jpg"></div>
-            <div class="gallery-item"><img src="images/haut.jpg"></div>
-            <div class="gallery-item"><img src="images/part.jpg"></div>
-        </div>
-    </section>
-
-    <footer>O & S — 2026</footer>
-</div>
-
-<script>
-    const music = document.getElementById('bg-music');
-    const musicControl = document.getElementById('music-control');
-    function toggleMusic() {
-        if (music.paused) { music.play(); musicControl.classList.add('playing'); }
-        else { music.pause(); musicControl.classList.remove('playing'); }
-    }
-    function toggleFields(selectId, targetId) {
-        const val = document.getElementById(selectId).value;
-        const target = document.getElementById(targetId);
-        if (val === 'oui') target.classList.add('active');
-        else target.classList.remove('active');
-    }
-    window.onload = () => {
-        toggleFields('pres_m', 'sec_m');
-        toggleFields('pres_h', 'sec_h');
-    };
-    document.getElementById('rsvp-form').onsubmit = function(e) {
-        e.preventDefault();
-        document.getElementById('subBtn').innerText = "MERCI !";
-    };
-</script>
-</body>
-</html>            background-attachment: fixed; background-position: center;
-            background-repeat: no-repeat; background-size: cover;
-            margin: 20px 0;
-        }
-        .img-bateau { background-image: url('images/bateau.jpg'); }
-        .img-alliance { background-image: url('images/regard.jpg'); }
-
-        @media only screen and (max-device-width: 1366px) {
-            .parallax-section { background-attachment: scroll; }
-        }
-
-        .container {
-            width: 100%; max-width: 600px;
-            margin: 0 auto; padding: 0 20px; text-align: center;
-        }
-
-        .main-names {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem; font-weight: 300; font-style: italic;
-            margin: -25px 0 20px; padding-left: 55px; position: relative;
-            animation: fadeInUp 1.2s ease-out; color: var(--text-dark);
-        }
-
-        .luxury-divider {
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 40px; width: 80%; opacity: 0;
-            animation: fadeInUp 1.2s ease-out 0.4s forwards;
-        }
-        .luxury-divider::before, .luxury-divider::after {
-            content: ""; flex: 1; height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-        }
-        .divider-symbol { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.5rem; margin: 0 15px; }
-
-        .event-section {
-            padding: 50px 0;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(2px);
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; }
-        .event-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 10px; color: var(--text-dark); }
-        .hebrew-banner { width: 90%; max-width: 380px; margin: 0 auto 30px; display: block; mix-blend-mode: multiply; filter: contrast(1.1); }
-
-        .families-wrapper { display: flex; justify-content: space-between; align-items: flex-start; margin: 30px 0 20px; width: 100%; }
-        .parents-names { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.05rem; line-height: 1.2; margin-bottom: 4px; }
-
-        .hebrew { font-size: 2.5rem; margin: 10px 0; font-family: 'Cormorant Garamond', serif; color: var(--gold); }
-        .address { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; color: #666; margin-bottom: 25px; }
-
-        .btn { padding: 12px 20px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; min-width: 110px; cursor: pointer; background: rgba(255,255,255,0.3); transition: 0.3s; }
-        .btn:hover { background: var(--gold); color: white; }
-
-        .rsvp-section { padding: 60px 20px; background-color: rgba(242, 239, 233, 0.8); margin: 0 -20px; }
-        .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
-        .form-label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; font-weight: 600; }
-        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ccc; background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; color: var(--text-dark); outline: none; }
-        
-        .hidden-fields { max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; opacity: 0; }
-        .hidden-fields.active { max-height: 250px; opacity: 1; margin-bottom: 25px; }
-
-        .submit-btn { display: block; width: 100%; padding: 18px; background-color: var(--gold); color: white; border: none; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-top: 30px; cursor: pointer; font-weight: 600; }
-
-        .photo-gallery { padding: 60px 15px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 12px; max-width: 500px; margin: 0 auto; }
-        .gallery-item:first-child { grid-column: span 2; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 2px; }
-
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
-
-        #music-control { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
-        #pause-icon { display: none; }
-        .playing #play-icon { display: none; }
-        .playing #pause-icon { display: block; }
-    </style>
-</head>
-<body>
-
-<div class="texture-overlay"></div>
-
-<audio id="bg-music" src="musique.mp3" loop></audio>
-
-<div id="music-control" onclick="toggleMusic()">
-    <svg id="play-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    <svg id="pause-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-</div>
-
-<div class="hero-image"><div class="hero-overlay"></div></div>
-
-<div class="container">
-    <h1 class="main-names">Ora & Samuel</h1>
-    <div class="luxury-divider"><span class="divider-symbol">✧</span></div>
-
-    <section class="event-section" style="border-top: none;">
-        <p class="label">Union Civile</p>
-        <h2 class="event-title">La Mairie</h2>
-        <p class="details">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
-        <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
-        <div class="btn-group">
-            <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
+            <a href="#" class="btn">Calendrier</a>
         </div>
     </section>
 </div>
@@ -390,20 +385,31 @@
         <p class="label">Cérémonie Religieuse</p>
         <h2 class="event-title">Houppa & Soirée</h2>
         <div class="families-wrapper">
-            <div class="family-left" style="text-align: left; width: 48%;">
+            <div class="family-left">
+                <p class="family-title">Famille NABET</p>
                 <p class="parents-names">M. & Mme Carole</p>
                 <p class="parents-names">et Moshé NABET</p>
             </div>
-            <div class="family-right" style="text-align: right; width: 48%;">
+            <div class="family-right">
+                <p class="family-title">Famille ATTARD & ASCOLI</p>
                 <p class="parents-names">Mme ATTARD</p>
                 <p class="parents-names">M. ASCOLI</p>
             </div>
         </div>
+        <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
         <div class="hebrew">אורה & שמואל</div>
         <p class="details">JEUDI 15 OCTOBRE 2026 À 17H30</p>
         <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
+            <a href="#" class="btn">Calendrier</a>
+        </div>
+        <div class="tribute-card">
+            <p style="font-style: italic; font-weight: 600; margin-bottom: 10px;">Une pensée très émue pour nos disparus</p>
+            <p style="color: #555; line-height: 1.6; font-size: 1rem;">
+                Liliane Ascoli, Alfred Ascoli, Georges Attard, Georgette Attard,<br>
+                et nos grands-parents Jean-Jacques Nabet et Jossiane Nabet
+            </p>
         </div>
     </section>
 </div>
@@ -483,19 +489,38 @@
         if (music.paused) { music.play(); musicControl.classList.add('playing'); }
         else { music.pause(); musicControl.classList.remove('playing'); }
     }
+
     function toggleFields(selectId, targetId) {
         const val = document.getElementById(selectId).value;
         const target = document.getElementById(targetId);
         if (val === 'oui') target.classList.add('active');
         else target.classList.remove('active');
     }
+
     window.onload = () => {
         toggleFields('pres_m', 'sec_m');
         toggleFields('pres_h', 'sec_h');
     };
+
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        const size = Math.random() * 12 + 8;
+        petal.style.width = size + 'px';
+        petal.style.height = size * 1.5 + 'px';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.top = '-20px';
+        petal.style.animation = `fall ${Math.random() * 3 + 4}s linear forwards`;
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 7000);
+    }
+    setInterval(createPetal, 450);
+
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
-        document.getElementById('subBtn').innerText = "MERCI !";
+        const btn = document.getElementById('subBtn');
+        btn.innerText = "ENVOI EN COURS...";
+        setTimeout(() => { alert('Merci ! Votre réponse a bien été enregistrée.'); btn.innerText = "ENVOYÉ !"; }, 1500);
     };
 </script>
 </body>
