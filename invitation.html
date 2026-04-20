@@ -15,20 +15,14 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- FOND MARBRE AVEC VEINES ALÉATOIRES (4 TRAITS) --- */
         body {
             background-color: #f4f1ea;
             background-image:
-                /* Trait 1 : Fin et incliné (Haut Gauche) */
-                    linear-gradient(35deg, transparent 20%, rgba(197, 160, 89, 0.04) 21%, rgba(197, 160, 89, 0.06) 22%, transparent 25%),
-                        /* Trait 2 : Principal (Milieu Droit) */
-                    linear-gradient(125deg, transparent 65%, rgba(197, 160, 89, 0.07) 68%, rgba(197, 160, 89, 0.1) 70%, transparent 55%),
-                        /* Trait 3 : Très léger et horizontal (Bas) */
-                    linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.03) 82%, transparent 45%),
-                        /* Trait 4 : Veine grise subtile (Verticale Gauche) */
-                    linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.02) 12%, transparent 15%),
-                        /* Texture de grain générale */
-                    linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.01) 45%, transparent 90%);
+                linear-gradient(35deg, transparent 20%, rgba(197, 160, 89, 0.04) 21%, rgba(197, 160, 89, 0.06) 22%, transparent 25%),
+                linear-gradient(125deg, transparent 65%, rgba(197, 160, 89, 0.07) 68%, rgba(197, 160, 89, 0.1) 70%, transparent 55%),
+                linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.03) 82%, transparent 45%),
+                linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.02) 12%, transparent 15%),
+                linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.01) 45%, transparent 90%);
             background-attachment: fixed;
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
@@ -238,7 +232,6 @@
             border-right: 1px solid var(--gold);
         }
 
-        /* --- FORMULAIRE --- */
         .rsvp-section {
             padding: 60px 20px;
             background-color: rgba(242, 239, 233, 0.8);
@@ -297,10 +290,7 @@
             font-weight: 600;
         }
 
-        /* --- GALERIE PHOTOS --- */
-        .photo-gallery {
-            padding: 60px 15px;
-        }
+        .photo-gallery { padding: 60px 15px; }
 
         .gallery-grid {
             display: grid;
@@ -318,13 +308,7 @@
         }
 
         .gallery-item:first-child { grid-column: span 2; }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
@@ -352,7 +336,7 @@
 </head>
 <body>
 
-<audio id="bg-music" src="musique.mp3" loop></audio>
+<audio id="bg-music" src="musique2.mp3" loop></audio>
 
 <div id="music-control" onclick="toggleMusic()">
     <svg id="play-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -392,9 +376,8 @@
             </div>
             <div class="family-right">
                 <p class="family-title">Famille ATTARD & ASCOLI</p>
-                <p class="parents-names">Mme ASCOLI</p> 
+                <p class="parents-names">Mme ASCOLI</p>
                 <p class="parents-names">M. ATTARD</p>
-               
             </div>
         </div>
         <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
@@ -486,9 +469,32 @@
 <script>
     const music = document.getElementById('bg-music');
     const musicControl = document.getElementById('music-control');
+    let hasStarted = false;
+
+    // Fonction pour lancer la musique au premier scroll/touch
+    function startMusic() {
+        if (!hasStarted) {
+            music.play().then(() => {
+                musicControl.classList.add('playing');
+                hasStarted = true;
+                window.removeEventListener('scroll', startMusic);
+                window.removeEventListener('touchstart', startMusic);
+            }).catch(e => console.log("Attente interaction..."));
+        }
+    }
+
+    window.addEventListener('scroll', startMusic);
+    window.addEventListener('touchstart', startMusic);
+
     function toggleMusic() {
-        if (music.paused) { music.play(); musicControl.classList.add('playing'); }
-        else { music.pause(); musicControl.classList.remove('playing'); }
+        if (music.paused) { 
+            music.play(); 
+            musicControl.classList.add('playing'); 
+            hasStarted = true;
+        } else { 
+            music.pause(); 
+            musicControl.classList.remove('playing'); 
+        }
     }
 
     function toggleFields(selectId, targetId) {
