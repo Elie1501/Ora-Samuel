@@ -15,20 +15,24 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- EFFET MARBRE EN PREMIER PLAN (OVERLAY) --- */
+        /* --- EFFET MARBRE ALÉATOIRE (SANS CROISEMENT CENTRAL) --- */
         .marble-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            pointer-events: none; /* Laisse cliquer les boutons en dessous */
-            z-index: 9998; /* Juste en dessous du bouton musique */
-            mix-blend-mode: multiply; /* Fusionne les veines avec le contenu */
-            opacity: 0.6; /* Ajustez selon la visibilité voulue sur votre écran */
+            pointer-events: none;
+            z-index: 9998;
+            mix-blend-mode: multiply;
+            opacity: 0.6;
             background-image:
-                linear-gradient(35deg, transparent 20%, rgba(160, 130, 70, 0.4) 21%, rgba(197, 160, 89, 0.6) 22%, transparent 26%),
-                linear-gradient(125deg, transparent 65%, rgba(100, 90, 70, 0.3) 68%, rgba(130, 120, 100, 0.4) 70%, transparent 75%),
-                linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.4) 82%, transparent 88%),
-                linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.15) 12%, rgba(0, 0, 0, 0.2) 13%, transparent 16%);
+                /* Veine 1 : En haut à gauche */
+                linear-gradient(25deg, transparent 10%, rgba(160, 130, 70, 0.3) 12%, rgba(197, 160, 89, 0.5) 13%, transparent 18%),
+                /* Veine 2 : Décalée vers la droite */
+                linear-gradient(115deg, transparent 75%, rgba(100, 90, 70, 0.25) 77%, rgba(130, 120, 100, 0.35) 78%, transparent 85%),
+                /* Veine 3 : Fine en bas à gauche */
+                linear-gradient(165deg, transparent 15%, rgba(197, 160, 89, 0.3) 17%, transparent 22%),
+                /* Veine 4 : Verticale décalée */
+                linear-gradient(5deg, transparent 85%, rgba(0, 0, 0, 0.15) 87%, rgba(0, 0, 0, 0.2) 88%, transparent 95%);
         }
 
         body {
@@ -116,8 +120,14 @@
         .btn { padding: 12px 20px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; min-width: 110px; cursor: pointer; background: transparent; transition: 0.3s; }
         .btn:hover { background: var(--gold); color: white; }
 
+        /* --- ANCIEN FORMULAIRE --- */
         .rsvp-section { padding: 60px 20px; background-color: rgba(242, 239, 233, 0.8); margin: 0 -20px; }
+        .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
+        .form-label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; font-weight: 600; }
         .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ccc; background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; color: var(--text-dark); outline: none; }
+        
+        .hidden-fields { max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; opacity: 0; }
+        .hidden-fields.active { max-height: 250px; opacity: 1; margin-bottom: 25px; }
 
         .submit-btn { display: block; width: 100%; padding: 18px; background-color: var(--gold); color: white; border: none; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-top: 30px; cursor: pointer; font-weight: 600; }
 
@@ -127,9 +137,6 @@
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
-
-        .petal { position: fixed; background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%); border-radius: 150% 0 150% 0; opacity: 0.3; pointer-events: none; z-index: 100; }
-        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
         #music-control { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
@@ -197,10 +204,55 @@
 <div class="container">
     <section class="rsvp-section" id="rsvp">
         <p class="label">R.S.V.P</p>
-        <h2 class="event-title">Confirmation</h2>
+        <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
         <form class="rsvp-form" id="rsvp-form">
-            <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
-            <button type="submit" class="submit-btn" id="subBtn">Envoyer</button>
+            <div class="form-group">
+                <label class="form-label">Nom et Prénom</label>
+                <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" style="margin-top:20px;">Présence à la Mairie</label>
+                <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
+                    <option value="oui">Sera présent avec joie</option>
+                    <option value="non">Ne pourra pas assister</option>
+                </select>
+            </div>
+            <div id="sec_m" class="hidden-fields">
+                <div style="display:flex; gap:15px; margin-top:10px;">
+                    <div style="flex:1;">
+                        <label class="form-label">Adultes</label>
+                        <input type="number" name="adultes_m" class="form-input" value="1" min="0">
+                    </div>
+                    <div style="flex:1;">
+                        <label class="form-label">Enfants</label>
+                        <input type="number" name="enfants_m" class="form-input" value="0" min="0">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" style="margin-top:20px;">Présence à la Houppa</label>
+                <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
+                    <option value="oui">Sera présent avec bonheur</option>
+                    <option value="non">Regrette de ne pas pouvoir</option>
+                </select>
+            </div>
+            <div id="sec_h" class="hidden-fields">
+                <div style="display:flex; gap:15px; margin-top:10px;">
+                    <div style="flex:1;">
+                        <label class="form-label">Adultes</label>
+                        <input type="number" name="adultes_h" class="form-input" value="1" min="0">
+                    </div>
+                    <div style="flex:1;">
+                        <label class="form-label">Enfants</label>
+                        <input type="number" name="enfants_h" class="form-input" value="0" min="0">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+                <label class="form-label">Un petit mot pour les mariés</label>
+                <textarea name="message" class="form-textarea" placeholder="Vos vœux de bonheur..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="subBtn">Envoyer ma réponse</button>
         </form>
     </section>
 
@@ -222,9 +274,19 @@
         if (music.paused) { music.play(); musicControl.classList.add('playing'); }
         else { music.pause(); musicControl.classList.remove('playing'); }
     }
+    function toggleFields(selectId, targetId) {
+        const val = document.getElementById(selectId).value;
+        const target = document.getElementById(targetId);
+        if (val === 'oui') target.classList.add('active');
+        else target.classList.remove('active');
+    }
+    window.onload = () => {
+        toggleFields('pres_m', 'sec_m');
+        toggleFields('pres_h', 'sec_h');
+    };
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
-        alert('Merci !');
+        document.getElementById('subBtn').innerText = "MERCI !";
     };
 </script>
 </body>
