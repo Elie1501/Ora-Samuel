@@ -9,20 +9,23 @@
         :root {
             --gold: #C5A059;
             --text-dark: #1a1a1a;
-            --bg-light: #F9F7F2;
-            --bg-section: #F2EFE9;
+            /* Beige sable chaleureux */
+            --bg-light: #F2E8D5;
+            --bg-section: #E5DCC3;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
+            /* Texture marbre blanc sur fond beige */
             background-color: var(--bg-light);
+            background-image: url('https://www.transparenttextures.com/patterns/white-marble.png');
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            padding-bottom: 60px; /* Espace pour ne pas cacher le footer avec le bouton fixe */
+            padding-bottom: 60px;
         }
 
         @keyframes fadeInUp {
@@ -51,6 +54,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             margin: 20px 0;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.1);
         }
 
         .img-bateau { background-image: url('images/bateau.jpg'); }
@@ -74,6 +78,7 @@
             font-weight: 300;
             font-style: italic;
             margin: -25px 0 20px;
+            padding-left: 55px;
             position: relative;
             animation: fadeInUp 1.2s ease-out;
         }
@@ -105,7 +110,7 @@
 
         .event-section {
             padding: 50px 0;
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
         }
 
         .label {
@@ -121,6 +126,15 @@
             font-size: 2.4rem;
             font-weight: 300;
             margin-bottom: 10px;
+        }
+
+        .hebrew-banner {
+            width: 90%;
+            max-width: 380px;
+            margin: 0 auto 30px;
+            display: block;
+            mix-blend-mode: multiply;
+            filter: contrast(1.1) sepia(0.3);
         }
 
         .families-wrapper {
@@ -155,7 +169,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.25rem;
             font-style: italic;
-            color: #555;
+            color: #444;
             margin: 0 0 40px;
         }
 
@@ -169,7 +183,8 @@
         }
 
         .tribute-card {
-            background-color: #fdfdfc;
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(3px);
             border-radius: 4px;
             padding: 25px 15px;
             margin: 35px auto 20px;
@@ -198,15 +213,11 @@
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1.25rem;
-            color: #666;
+            color: #555;
             margin-bottom: 25px;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
 
         .btn {
             padding: 12px 20px;
@@ -218,7 +229,7 @@
             text-transform: uppercase;
             min-width: 110px;
             cursor: pointer;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.1);
             transition: 0.3s;
         }
 
@@ -226,52 +237,21 @@
 
         .rsvp-section {
             padding: 60px 20px;
-            background-color: var(--bg-section);
+            background-color: rgba(229, 220, 195, 0.6);
+            backdrop-filter: blur(5px);
             margin: 0 -20px;
-        }
-
-        .rsvp-form {
-            max-width: 450px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 8px;
-            font-weight: 600;
         }
 
         .form-input, .form-select, .form-textarea {
             width: 100%;
             padding: 12px 0;
             border: none;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid var(--gold);
             background: transparent;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.95rem;
             color: var(--text-dark);
             outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
-
-        .hidden-fields {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease-in-out;
-            opacity: 0;
-        }
-
-        .hidden-fields.active {
-            max-height: 250px;
-            opacity: 1;
-            margin-bottom: 25px;
         }
 
         .submit-btn {
@@ -289,9 +269,9 @@
             font-weight: 600;
         }
 
+        /* --- GALERIE CORRIGÉE --- */
         .photo-gallery {
             padding: 60px 15px;
-            background: var(--bg-light);
         }
 
         .gallery-grid {
@@ -307,9 +287,13 @@
             overflow: hidden;
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            height: 250px;
         }
 
-        .gallery-item:first-child { grid-column: span 2; }
+        .gallery-item:first-child {
+            grid-column: span 2;
+            height: 350px;
+        }
 
         .gallery-item img {
             width: 100%;
@@ -323,23 +307,21 @@
 
         .petal {
             position: fixed;
-            background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%);
+            background: linear-gradient(135deg, #fffcf5 0%, #c5a059 100%);
             border-radius: 150% 0 150% 0;
-            opacity: 0.3;
+            opacity: 0.4;
             pointer-events: none;
             z-index: 100;
         }
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-        /* --- NOUVEAU STYLE BOUTON MUSIQUE FIXE --- */
         #music-control {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 9999;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(242, 232, 213, 0.8);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--gold);
             width: 45px;
             height: 45px;
@@ -349,15 +331,9 @@
             justify-content: center;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
         }
 
-        .music-icon-svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--gold);
-        }
-
+        .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
         #pause-icon { display: none; }
         .playing #play-icon { display: none; }
         .playing #pause-icon { display: block; }
@@ -386,7 +362,7 @@
     <section class="event-section" style="border-top: none;">
         <p class="label">Union Civile</p>
         <h2 class="event-title">La Mairie</h2>
-        <p class="details">MERCREDI 6 MAI 2026 À 14H30</p>
+        <p class="details">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
         <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
@@ -404,6 +380,8 @@
 
 <div class="container">
     <section class="event-section">
+        <img src="images/hebreu2.png" alt="Bénédiction" class="hebrew-banner">
+
         <p class="label">Cérémonie Religieuse</p>
         <h2 class="event-title">Houppa & Soirée</h2>
         <div class="families-wrapper">
@@ -414,14 +392,14 @@
             </div>
             <div class="family-right">
                 <p class="family-title">Famille ATTARD & ASCOLI</p>
-                <p class="parents-names">M. & Mme ATTARD</p>
-                <p class="parents-names">M. & Mme ASCOLI</p>
+                <p class="parents-names">Mme ATTARD</p>
+                <p class="parents-names">M. ASCOLI</p>
             </div>
         </div>
         <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
         <div class="hebrew">אורה & שמואל</div>
         <p class="intro-text">Seront honorés de votre présence à la cérémonie religieuse qui sera célébrée Bé’ézrat Hachem le</p>
-        <p class="details">MARDI 12 MAI 2026 À 17H30</p>
+        <p class="details">JEUDI 15 OCTOBRE 2026 À 17H30</p>
         <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
 
         <div class="btn-group">
@@ -509,7 +487,6 @@
 </div>
 
 <script>
-    /* --- LOGIQUE MUSIQUE --- */
     const music = document.getElementById('bg-music');
     const musicControl = document.getElementById('music-control');
     let hasStarted = false;
@@ -538,7 +515,6 @@
     window.addEventListener('click', startMusic, { once: true });
     window.addEventListener('touchstart', startMusic, { once: true });
 
-    /* --- RESTE DU SCRIPT --- */
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
