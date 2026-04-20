@@ -19,13 +19,13 @@
             background-color: var(--bg-base);
             background-image:
                 /* Veine 1 : Or sombre et large (Diagonale Gauche) */
-                linear-gradient(40deg, transparent 20%, rgba(160, 130, 70, 0.25) 21%, rgba(197, 160, 89, 0.4) 22%, transparent 26%),
-                /* Veine 2 : Veine de roche croisée (Diagonale Droite) */
-                linear-gradient(130deg, transparent 60%, rgba(100, 90, 70, 0.2) 63%, rgba(130, 120, 100, 0.3) 65%, transparent 70%),
-                /* Veine 3 : Veine grise fine mais nette (Verticale) */
-                linear-gradient(10deg, transparent 10%, rgba(0, 0, 0, 0.1) 12%, rgba(0, 0, 0, 0.15) 13%, transparent 16%),
-                /* Veine 4 : Veine d'or horizontale (Bas) */
-                linear-gradient(175deg, transparent 80%, rgba(197, 160, 89, 0.3) 82%, transparent 88%);
+                    linear-gradient(40deg, transparent 20%, rgba(160, 130, 70, 0.25) 21%, rgba(197, 160, 89, 0.4) 22%, transparent 26%),
+                        /* Veine 2 : Veine de roche croisée (Diagonale Droite) */
+                    linear-gradient(130deg, transparent 60%, rgba(100, 90, 70, 0.2) 63%, rgba(130, 120, 100, 0.3) 65%, transparent 70%),
+                        /* Veine 3 : Veine grise fine mais nette (Verticale) */
+                    linear-gradient(10deg, transparent 10%, rgba(0, 0, 0, 0.1) 12%, rgba(0, 0, 0, 0.15) 13%, transparent 16%),
+                        /* Veine 4 : Veine d'or horizontale (Bas) */
+                    linear-gradient(175deg, transparent 80%, rgba(197, 160, 89, 0.3) 82%, transparent 88%);
             background-attachment: fixed;
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
@@ -96,7 +96,7 @@
 
         .label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; font-weight: 600; }
         .event-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 10px; }
-        
+
         .hebrew-banner { width: 90%; max-width: 380px; margin: 0 auto 30px; display: block; mix-blend-mode: multiply; }
 
         .families-wrapper { display: flex; justify-content: space-between; margin: 30px 0 20px; }
@@ -202,13 +202,13 @@
         <h2 class="event-title">Confirmation</h2>
         <form class="rsvp-form" id="rsvp-form">
             <input type="text" name="nom" class="form-input" placeholder="Votre Nom" required>
-            
+
             <p class="label" style="margin-top:25px;">Présence Mairie</p>
             <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
                 <option value="oui">Sera présent(e)</option>
                 <option value="non">Ne pourra pas</option>
             </select>
-            
+
             <div id="sec_m" style="display:none; margin-top:10px;">
                 <input type="number" name="adultes_m" class="form-input" placeholder="Adultes" value="1">
             </div>
@@ -253,368 +253,6 @@
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
         document.getElementById('subBtn').innerText = "MERCI !";
-    };
-</script>
-</body>
-</html>            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin: 20px 0;
-        }
-
-        .img-bateau { background-image: url('images/bateau.jpg'); }
-        .img-alliance { background-image: url('images/regard.jpg'); }
-
-        @media only screen and (max-device-width: 1366px) {
-            .parallax-section { background-attachment: scroll; }
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .main-names {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 10vw, 3.2rem);
-            font-weight: 300;
-            font-style: italic;
-            margin: -25px 0 20px;
-            position: relative;
-            animation: fadeInUp 1.2s ease-out;
-            color: var(--text-dark);
-        }
-
-        .luxury-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 40px;
-            width: 80%;
-            opacity: 0;
-            animation: fadeInUp 1.2s ease-out 0.4s forwards;
-        }
-
-        .luxury-divider::before, .luxury-divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-        }
-
-        .divider-symbol {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin: 0 15px;
-        }
-
-        /* --- SECTIONS PLUS TRANSPARENTES POUR VOIR LE MARBRE --- */
-        .event-section {
-            padding: 50px 20px;
-            background: rgba(255, 255, 255, 0.3); /* Transparence accrue */
-            backdrop-filter: blur(1.5px);
-            border-top: 1px solid rgba(197, 160, 89, 0.15);
-            margin-bottom: 25px;
-            border-radius: 4px;
-        }
-
-        .label {
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .event-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.4rem;
-            font-weight: 300;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .hebrew-banner {
-            width: 90%;
-            max-width: 380px;
-            margin: 0 auto 30px;
-            display: block;
-            mix-blend-mode: multiply;
-        }
-
-        .families-wrapper {
-            display: flex;
-            justify-content: space-between;
-            margin: 30px 0 20px;
-            width: 100%;
-        }
-
-        .family-left { width: 48%; text-align: left; }
-        .family-right { width: 48%; text-align: right; }
-
-        .family-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-
-        .parents-names {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            font-size: 1rem;
-            line-height: 1.2;
-            color: #333;
-        }
-
-        .hebrew {
-            font-size: 2.5rem;
-            margin: 15px 0;
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--gold);
-        }
-
-        .address {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 25px;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: inline-block;
-            background: rgba(255,255,255,0.4);
-            font-weight: 600;
-        }
-
-        .tribute-card {
-            background-color: rgba(255, 255, 255, 0.6);
-            padding: 25px 15px;
-            margin: 35px auto 20px;
-            border-left: 1px solid var(--gold);
-            border-right: 1px solid var(--gold);
-        }
-
-        .rsvp-section {
-            padding: 60px 20px;
-            background-color: rgba(242, 239, 233, 0.8);
-            margin: 0 -20px;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 12px 0;
-            border: none;
-            border-bottom: 1px solid var(--gold);
-            background: transparent;
-            font-size: 1rem;
-            color: var(--text-dark);
-            outline: none;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background-color: var(--gold);
-            color: white;
-            border: none;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 600;
-            margin-top: 30px;
-        }
-
-        .photo-gallery { padding: 60px 15px; }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 12px;
-        }
-        .gallery-item { border-radius: 4px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .gallery-item:first-child { grid-column: span 2; }
-        .gallery-item img { width: 100%; display: block; }
-
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); font-weight: 600;}
-
-        #music-control {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
-            border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
-        #pause-icon { display: none; }
-        .playing #pause-icon { display: block; }
-        .playing #play-icon { display: none; }
-
-        .petal {
-            position: fixed;
-            background: linear-gradient(135deg, #fff 0%, var(--gold) 100%);
-            border-radius: 150% 0 150% 0;
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: 100;
-        }
-        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
-    </style>
-</head>
-<body>
-
-<audio id="bg-music" src="musique.mp3" loop></audio>
-
-<div id="music-control" onclick="toggleMusic()">
-    <svg id="play-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    <svg id="pause-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-</div>
-
-<div class="hero-image"><div class="hero-overlay"></div></div>
-
-<div class="container">
-    <h1 class="main-names">Ora & Samuel</h1>
-    <div class="luxury-divider"><span class="divider-symbol">✧</span></div>
-
-    <section class="event-section" style="border-top: none;">
-        <p class="label">Union Civile</p>
-        <h2 class="event-title">La Mairie</h2>
-        <p class="details" style="font-weight: 600; letter-spacing: 1px;">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
-        <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
-        <div class="btn-group">
-            <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
-        </div>
-    </section>
-</div>
-
-<div class="parallax-section img-bateau"></div>
-
-<div class="container">
-    <section class="event-section">
-        <img src="images/hebreu2.png" alt="Bénédiction" class="hebrew-banner">
-        <p class="label">Cérémonie Religieuse</p>
-        <h2 class="event-title">Houppa & Soirée</h2>
-        <div class="families-wrapper">
-            <div class="family-left">
-                <p class="family-title">Famille NABET</p>
-                <p class="parents-names">M. & Mme Carole</p>
-                <p class="parents-names">et Moshé NABET</p>
-            </div>
-            <div class="family-right">
-                <p class="family-title">Famille ATTARD & ASCOLI</p>
-                <p class="parents-names">Mme ATTARD</p>
-                <p class="parents-names">M. ASCOLI</p>
-            </div>
-        </div>
-        <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
-        <div class="hebrew">אורה & שמואל</div>
-        <p class="details" style="font-weight: 600; letter-spacing: 1px;">JEUDI 15 OCTOBRE 2026 À 17H30</p>
-        <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
-        <div class="btn-group">
-            <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
-        </div>
-    </section>
-</div>
-
-<div class="parallax-section img-alliance"></div>
-
-<div class="container">
-    <section class="rsvp-section" id="rsvp">
-        <p class="label">R.S.V.P</p>
-        <h2 class="event-title">Confirmation</h2>
-        <form class="rsvp-form" id="rsvp-form">
-            <input type="text" name="nom" class="form-input" placeholder="Votre Nom et Prénom" required>
-            
-            <label class="form-label" style="margin-top:25px;">Présence Mairie</label>
-            <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
-                <option value="oui">Sera présent(e)</option>
-                <option value="non">Ne pourra pas être présent(e)</option>
-            </select>
-            
-            <div id="sec_m" class="hidden-fields">
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <input type="number" name="adultes_m" class="form-input" placeholder="Nombre Adultes" value="1">
-                    <input type="number" name="enfants_m" class="form-input" placeholder="Nombre Enfants" value="0">
-                </div>
-            </div>
-
-            <label class="form-label" style="margin-top:25px;">Présence Houppa</label>
-            <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
-                <option value="oui">Sera présent(e)</option>
-                <option value="non">Ne pourra pas être présent(e)</option>
-            </select>
-
-            <div id="sec_h" class="hidden-fields">
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <input type="number" name="adultes_h" class="form-input" placeholder="Nombre Adultes" value="1">
-                    <input type="number" name="enfants_h" class="form-input" placeholder="Nombre Enfants" value="0">
-                </div>
-            </div>
-
-            <textarea name="message" class="form-textarea" placeholder="Votre message..." style="margin-top:20px;"></textarea>
-            <button type="submit" class="submit-btn" id="subBtn">Envoyer</button>
-        </form>
-    </section>
-
-    <section class="photo-gallery">
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="images/conduite.jpg"></div>
-            <div class="gallery-item"><img src="images/haut.jpg"></div>
-            <div class="gallery-item"><img src="images/part.jpg"></div>
-        </div>
-    </section>
-
-    <footer>O & S — 2026</footer>
-</div>
-
-<script>
-    const music = document.getElementById('bg-music');
-    const musicControl = document.getElementById('music-control');
-    function toggleMusic() {
-        if (music.paused) { music.play(); musicControl.classList.add('playing'); }
-        else { music.pause(); musicControl.classList.remove('playing'); }
-    }
-
-    function toggleFields(selectId, targetId) {
-        const val = document.getElementById(selectId).value;
-        const target = document.getElementById(targetId);
-        if (val === 'oui') target.classList.add('active');
-        else target.classList.remove('active');
-    }
-
-    window.onload = () => { toggleFields('pres_m', 'sec_m'); toggleFields('pres_h', 'sec_h'); };
-
-    function createPetal() {
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
-        const size = Math.random() * 12 + 8;
-        petal.style.width = size + 'px';
-        petal.style.height = size * 1.5 + 'px';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.top = '-20px';
-        petal.style.animation = `fall ${Math.random() * 3 + 4}s linear forwards`;
-        document.body.appendChild(petal);
-        setTimeout(() => petal.remove(), 7000);
-    }
-    setInterval(createPetal, 450);
-
-    document.getElementById('rsvp-form').onsubmit = function(e) {
-        e.preventDefault();
-        document.getElementById('subBtn').innerText = "ENVOI EN COURS...";
-        setTimeout(() => { alert('Merci !'); document.getElementById('subBtn').innerText = "ENVOYÉ !"; }, 1500);
     };
 </script>
 </body>
