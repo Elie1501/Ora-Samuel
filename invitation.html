@@ -9,24 +9,30 @@
         :root {
             --gold: #C5A059;
             --text-dark: #1a1a1a;
-            --bg-base: #f1ede4;
+            --bg-light: #F9F7F2;
+            --bg-section: #F2EFE9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- MARBRE HAUTE VISIBILITÉ POUR MOBILE --- */
-        body {
-            background-color: var(--bg-base);
+        /* --- EFFET MARBRE EN PREMIER PLAN (OVERLAY) --- */
+        .marble-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; /* Laisse cliquer les boutons en dessous */
+            z-index: 9998; /* Juste en dessous du bouton musique */
+            mix-blend-mode: multiply; /* Fusionne les veines avec le contenu */
+            opacity: 0.6; /* Ajustez selon la visibilité voulue sur votre écran */
             background-image:
-                /* Veine 1 : Or sombre et large (Diagonale Gauche) */
-                    linear-gradient(40deg, transparent 20%, rgba(160, 130, 70, 0.25) 21%, rgba(197, 160, 89, 0.4) 22%, transparent 26%),
-                        /* Veine 2 : Veine de roche croisée (Diagonale Droite) */
-                    linear-gradient(130deg, transparent 60%, rgba(100, 90, 70, 0.2) 63%, rgba(130, 120, 100, 0.3) 65%, transparent 70%),
-                        /* Veine 3 : Veine grise fine mais nette (Verticale) */
-                    linear-gradient(10deg, transparent 10%, rgba(0, 0, 0, 0.1) 12%, rgba(0, 0, 0, 0.15) 13%, transparent 16%),
-                        /* Veine 4 : Veine d'or horizontale (Bas) */
-                    linear-gradient(175deg, transparent 80%, rgba(197, 160, 89, 0.3) 82%, transparent 88%);
-            background-attachment: fixed;
+                linear-gradient(35deg, transparent 20%, rgba(160, 130, 70, 0.4) 21%, rgba(197, 160, 89, 0.6) 22%, transparent 26%),
+                linear-gradient(125deg, transparent 65%, rgba(100, 90, 70, 0.3) 68%, rgba(130, 120, 100, 0.4) 70%, transparent 75%),
+                linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.4) 82%, transparent 88%),
+                linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.15) 12%, rgba(0, 0, 0, 0.2) 13%, transparent 16%);
+        }
+
+        body {
+            background-color: #f4f1ea;
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.5;
@@ -48,7 +54,7 @@
 
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, var(--bg-base) 95%);
+            background: linear-gradient(to bottom, transparent 50%, #f4f1ea 95%);
         }
 
         .parallax-section {
@@ -64,14 +70,16 @@
             .parallax-section { background-attachment: scroll; }
         }
 
-        .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 0 20px; text-align: center; }
+        .container {
+            width: 100%; max-width: 600px;
+            margin: 0 auto; padding: 0 20px; text-align: center;
+        }
 
         .main-names {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 10vw, 3.2rem);
-            font-weight: 300; font-style: italic;
-            margin: -25px 0 20px; position: relative;
-            animation: fadeInUp 1.2s ease-out;
+            font-size: 3.2rem; font-weight: 300; font-style: italic;
+            margin: -25px 0 20px; padding-left: 55px; position: relative;
+            animation: fadeInUp 1.2s ease-out; color: var(--text-dark);
         }
 
         .luxury-divider {
@@ -83,70 +91,56 @@
             content: ""; flex: 1; height: 1px;
             background: linear-gradient(to right, transparent, var(--gold), transparent);
         }
-        .divider-symbol { color: var(--gold); font-size: 1.5rem; margin: 0 15px; }
+        .divider-symbol { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.5rem; margin: 0 15px; }
 
-        /* SECTIONS TRANSPARENTES POUR LAISSER VOIR LE MARBRE */
         .event-section {
-            padding: 50px 20px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(1px);
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-            margin-bottom: 25px; border-radius: 4px;
+            padding: 50px 0;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            margin-bottom: 20px;
         }
 
-        .label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; font-weight: 600; }
-        .event-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 10px; }
+        .label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; }
+        .event-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; margin-bottom: 10px; color: var(--text-dark); }
+        .hebrew-banner { width: 90%; max-width: 380px; margin: 0 auto 30px; display: block; mix-blend-mode: multiply; filter: contrast(1.1); }
 
-        .hebrew-banner { width: 90%; max-width: 380px; margin: 0 auto 30px; display: block; mix-blend-mode: multiply; }
-
-        .families-wrapper { display: flex; justify-content: space-between; margin: 30px 0 20px; }
+        .families-wrapper { display: flex; justify-content: space-between; align-items: flex-start; margin: 30px 0 20px; width: 100%; }
         .family-left { width: 48%; text-align: left; }
         .family-right { width: 48%; text-align: right; }
-        .parents-names { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1rem; line-height: 1.2; }
+        .parents-names { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.05rem; line-height: 1.2; margin-bottom: 4px; }
 
-        .hebrew { font-size: 2.5rem; margin: 15px 0; font-family: 'Cormorant Garamond', serif; color: var(--gold); }
-        .address { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: #444; margin-bottom: 25px; }
+        .hebrew { font-size: 2.5rem; margin: 10px 0; font-family: 'Cormorant Garamond', serif; color: var(--gold); }
+        .address { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; color: #666; margin-bottom: 25px; }
 
-        .btn {
-            padding: 12px 20px; border: 1px solid var(--gold);
-            color: var(--gold); text-decoration: none; font-size: 0.65rem;
-            letter-spacing: 2px; text-transform: uppercase; display: inline-block;
-            background: rgba(255,255,255,0.5); font-weight: 600;
-        }
+        .btn { padding: 12px 20px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; min-width: 110px; cursor: pointer; background: transparent; transition: 0.3s; }
+        .btn:hover { background: var(--gold); color: white; }
 
-        .rsvp-section { padding: 60px 20px; background-color: rgba(242, 239, 233, 0.9); margin: 0 -20px; }
-        .form-input, .form-select, .form-textarea {
-            width: 100%; padding: 12px 0; border: none;
-            border-bottom: 1px solid var(--gold); background: transparent;
-            font-size: 1rem; outline: none;
-        }
+        .rsvp-section { padding: 60px 20px; background-color: rgba(242, 239, 233, 0.8); margin: 0 -20px; }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ccc; background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; color: var(--text-dark); outline: none; }
 
-        .submit-btn {
-            display: block; width: 100%; padding: 18px;
-            background-color: var(--gold); color: white; border: none;
-            text-transform: uppercase; letter-spacing: 3px; font-weight: 600; margin-top: 30px;
-        }
+        .submit-btn { display: block; width: 100%; padding: 18px; background-color: var(--gold); color: white; border: none; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-top: 30px; cursor: pointer; font-weight: 600; }
 
         .photo-gallery { padding: 60px 15px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 12px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 12px; max-width: 500px; margin: 0 auto; }
         .gallery-item:first-child { grid-column: span 2; }
-        .gallery-item img { width: 100%; display: block; border-radius: 4px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); font-weight: 600; }
+        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
-        #music-control {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            background: rgba(255, 255, 255, 0.9); border: 1px solid var(--gold);
-            width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .petal { position: fixed; background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%); border-radius: 150% 0 150% 0; opacity: 0.3; pointer-events: none; z-index: 100; }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+
+        #music-control { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
         #pause-icon { display: none; }
-        .playing #pause-icon { display: block; }
         .playing #play-icon { display: none; }
+        .playing #pause-icon { display: block; }
     </style>
 </head>
 <body>
+
+<div class="marble-overlay"></div>
 
 <audio id="bg-music" src="musique.mp3" loop></audio>
 
@@ -164,9 +158,11 @@
     <section class="event-section" style="border-top: none;">
         <p class="label">Union Civile</p>
         <h2 class="event-title">La Mairie</h2>
-        <p style="font-weight: 600; margin-bottom: 5px;">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
+        <p class="details">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
         <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
-        <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
+        <div class="btn-group">
+            <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
+        </div>
     </section>
 </div>
 
@@ -188,9 +184,11 @@
             </div>
         </div>
         <div class="hebrew">אורה & שמואל</div>
-        <p style="font-weight: 600; margin: 10px 0;">JEUDI 15 OCTOBRE 2026 À 17H30</p>
+        <p class="details">JEUDI 15 OCTOBRE 2026 À 17H30</p>
         <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
-        <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
+        <div class="btn-group">
+            <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
+        </div>
     </section>
 </div>
 
@@ -201,28 +199,7 @@
         <p class="label">R.S.V.P</p>
         <h2 class="event-title">Confirmation</h2>
         <form class="rsvp-form" id="rsvp-form">
-            <input type="text" name="nom" class="form-input" placeholder="Votre Nom" required>
-
-            <p class="label" style="margin-top:25px;">Présence Mairie</p>
-            <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
-                <option value="oui">Sera présent(e)</option>
-                <option value="non">Ne pourra pas</option>
-            </select>
-
-            <div id="sec_m" style="display:none; margin-top:10px;">
-                <input type="number" name="adultes_m" class="form-input" placeholder="Adultes" value="1">
-            </div>
-
-            <p class="label" style="margin-top:25px;">Présence Houppa</p>
-            <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
-                <option value="oui">Sera présent(e)</option>
-                <option value="non">Ne pourra pas</option>
-            </select>
-
-            <div id="sec_h" style="display:none; margin-top:10px;">
-                <input type="number" name="adultes_h" class="form-input" placeholder="Adultes" value="1">
-            </div>
-
+            <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
             <button type="submit" class="submit-btn" id="subBtn">Envoyer</button>
         </form>
     </section>
@@ -245,14 +222,9 @@
         if (music.paused) { music.play(); musicControl.classList.add('playing'); }
         else { music.pause(); musicControl.classList.remove('playing'); }
     }
-    function toggleFields(selectId, targetId) {
-        const val = document.getElementById(selectId).value;
-        const target = document.getElementById(targetId);
-        target.style.display = (val === 'oui') ? 'block' : 'none';
-    }
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
-        document.getElementById('subBtn').innerText = "MERCI !";
+        alert('Merci !');
     };
 </script>
 </body>
