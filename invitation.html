@@ -9,7 +9,9 @@
         :root {
             --gold: #C5A059;
             --text-dark: #1a1a1a;
-            --bg-light: #ffffff;
+            /* Beige léger élégant */
+            --bg-light: #F9F7F2;
+            --bg-section: #F2EFE9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,10 +40,10 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
+            /* Dégradé ajusté sur le nouveau beige */
             background: linear-gradient(to bottom, transparent 50%, var(--bg-light) 95%);
         }
 
-        /* --- EFFET PARALLAX --- */
         .parallax-section {
             width: 100%;
             height: 40vh;
@@ -52,14 +54,11 @@
             margin: 20px 0;
         }
 
-        /* Images spécifiques pour chaque section parallax */
         .img-bateau { background-image: url('images/bateau.jpg'); }
-        .img-alliance { background-image: url('images/regard.jpg'); } /* REMPLACEZ PAR VOTRE IMAGE */
+        .img-alliance { background-image: url('images/regard.jpg'); }
 
         @media only screen and (max-device-width: 1366px) {
-            .parallax-section {
-                background-attachment: scroll;
-            }
+            .parallax-section { background-attachment: scroll; }
         }
 
         .container {
@@ -107,7 +106,7 @@
 
         .event-section {
             padding: 50px 0;
-            border-top: 1px solid #f5f5f5;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
         }
 
         .label {
@@ -159,7 +158,6 @@
             font-style: italic;
             color: #555;
             margin: 0 0 40px;
-            padding: 0 10px;
         }
 
         .intro-text {
@@ -172,21 +170,14 @@
         }
 
         .tribute-card {
-            background-color: #fafafa;
+            background-color: #fdfdfc; /* Légèrement plus clair pour détacher du fond */
             border-radius: 4px;
             padding: 25px 15px;
             margin: 35px auto 20px;
             max-width: 90%;
             border-left: 1px solid var(--gold);
             border-right: 1px solid var(--gold);
-        }
-
-        .tribute-card p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            color: var(--text-dark);
-            margin: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .hebrew {
@@ -228,7 +219,7 @@
             text-transform: uppercase;
             min-width: 110px;
             cursor: pointer;
-            background: none;
+            background: transparent;
             transition: 0.3s;
         }
 
@@ -236,8 +227,8 @@
 
         .rsvp-section {
             padding: 60px 20px;
-            background-color: #fdfbf9;
-            margin: 0 -20px; /* Ajusté pour supprimer les marges blanches latérales si besoin */
+            background-color: var(--bg-section);
+            margin: 0 -20px;
         }
 
         .rsvp-form {
@@ -245,8 +236,6 @@
             margin: 0 auto;
             text-align: left;
         }
-
-        .form-group { margin-bottom: 25px; }
 
         .form-label {
             display: block;
@@ -262,7 +251,7 @@
             width: 100%;
             padding: 12px 0;
             border: none;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #ccc;
             background: transparent;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.95rem;
@@ -272,14 +261,6 @@
         }
 
         .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .form-row div { flex: 1; }
 
         .hidden-fields {
             max-height: 0;
@@ -311,7 +292,7 @@
 
         .photo-gallery {
             padding: 60px 15px;
-            background: #ffffff;
+            background: var(--bg-light);
         }
 
         .gallery-grid {
@@ -329,9 +310,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .gallery-item:first-child {
-            grid-column: span 2;
-        }
+        .gallery-item:first-child { grid-column: span 2; }
 
         .gallery-item img {
             width: 100%;
@@ -341,31 +320,71 @@
             transition: transform 0.5s ease;
         }
 
-        .gallery-item:hover img { transform: scale(1.05); }
-
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
         .petal {
             position: fixed;
             background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%);
             border-radius: 150% 0 150% 0;
-            opacity: 0.3;
+            opacity: 0.6;
             pointer-events: none;
             z-index: 100;
         }
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+
+        /* --- STYLE DU BOUTON MUSIQUE --- */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #music-control:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        #music-icon {
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        /* Animation de rotation quand la musique joue */
+        .rotating {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+
+<audio id="bg-music" src="musique.mp3" loop></audio>
+
+<div id="music-control" onclick="toggleMusic()">
+    <span id="music-icon">♪</span>
+</div>
 
 <div class="hero-image"><div class="hero-overlay"></div></div>
 
 <div class="container">
     <h1 class="main-names">Ora & Samuel</h1>
-
-    <div class="luxury-divider">
-        <span class="divider-symbol">✧</span>
-    </div>
+    <div class="luxury-divider"><span class="divider-symbol">✧</span></div>
 
     <section class="event-section" style="border-top: none;">
         <p class="label">Union Civile</p>
@@ -417,8 +436,7 @@
             <p style="font-style: italic; font-weight: 600; margin-bottom: 10px;">Une pensée très émue pour nos disparus</p>
             <p style="color: #555; line-height: 1.6; font-size: 1rem; margin-bottom: 10px;">
                 Liliane Ascoli, Alfred Ascoli, Georges Attard, Georgette Attard,<br>
-                et nos grands-parents Jean-Jacques Nabet et Jossiane Nabet<br>
-                qui nous manqueront tant en ce jour unique.
+                et nos grands-parents Jean-Jacques Nabet et Jossiane Nabet
             </p>
             <p style="color: var(--gold); font-weight: 600; font-size: 0.95rem;">Que leurs bénédictions illuminent notre vie.</p>
         </div>
@@ -437,44 +455,44 @@
                 <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Présence à la Mairie</label>
+                <label class="form-label" style="margin-top:20px;">Présence à la Mairie</label>
                 <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
                     <option value="oui">Sera présent avec joie</option>
-                    <option value="non">Ne pourra pas assister à la cérémonie</option>
+                    <option value="non">Ne pourra pas assister</option>
                 </select>
             </div>
-            <div id="sec_m" class="hidden-fields active">
-                <div class="form-row">
-                    <div>
-                        <label class="form-label">Adultes (Mairie)</label>
+            <div id="sec_m" class="hidden-fields">
+                <div style="display:flex; gap:15px; margin-top:10px;">
+                    <div style="flex:1;">
+                        <label class="form-label">Adultes</label>
                         <input type="number" name="adultes_m" class="form-input" value="1" min="0">
                     </div>
-                    <div>
-                        <label class="form-label">Enfants (Mairie)</label>
+                    <div style="flex:1;">
+                        <label class="form-label">Enfants</label>
                         <input type="number" name="enfants_m" class="form-input" value="0" min="0">
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="form-label">Présence à la Houppa</label>
+                <label class="form-label" style="margin-top:20px;">Présence à la Houppa</label>
                 <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
                     <option value="oui">Sera présent avec bonheur</option>
-                    <option value="non">Regrette de ne pas pouvoir être présent</option>
+                    <option value="non">Regrette de ne pas pouvoir</option>
                 </select>
             </div>
-            <div id="sec_h" class="hidden-fields active">
-                <div class="form-row">
-                    <div>
-                        <label class="form-label">Adultes (Houppa)</label>
+            <div id="sec_h" class="hidden-fields">
+                <div style="display:flex; gap:15px; margin-top:10px;">
+                    <div style="flex:1;">
+                        <label class="form-label">Adultes</label>
                         <input type="number" name="adultes_h" class="form-input" value="1" min="0">
                     </div>
-                    <div>
-                        <label class="form-label">Enfants (Houppa)</label>
+                    <div style="flex:1;">
+                        <label class="form-label">Enfants</label>
                         <input type="number" name="enfants_h" class="form-input" value="0" min="0">
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top:20px;">
                 <label class="form-label">Un petit mot pour les mariés</label>
                 <textarea name="message" class="form-textarea" placeholder="Vos vœux de bonheur..."></textarea>
             </div>
@@ -484,15 +502,9 @@
 
     <section class="photo-gallery">
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="images/conduite.jpg" alt="Photo Principale">
-            </div>
-            <div class="gallery-item">
-                <img src="images/haut.jpg" alt="Photo 1">
-            </div>
-            <div class="gallery-item">
-                <img src="images/part.jpg" alt="Photo 2">
-            </div>
+            <div class="gallery-item"><img src="images/conduite.jpg" alt="Photo 1"></div>
+            <div class="gallery-item"><img src="images/haut.jpg" alt="Photo 2"></div>
+            <div class="gallery-item"><img src="images/part.jpg" alt="Photo 3"></div>
         </div>
     </section>
 
@@ -500,10 +512,44 @@
 </div>
 
 <script>
+    /* --- LOGIQUE MUSIQUE --- */
+    const music = document.getElementById('bg-music');
+    const musicIcon = document.getElementById('music-icon');
+    const musicControl = document.getElementById('music-control');
+    let hasStarted = false;
+
+    function startMusic() {
+        if (!hasStarted) {
+            music.play().then(() => {
+                hasStarted = true;
+                musicControl.classList.add('rotating');
+            }).catch(e => console.log("Attente d'interaction utilisateur..."));
+        }
+    }
+
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+            musicIcon.innerText = "♪";
+            musicControl.classList.add('rotating');
+        } else {
+            music.pause();
+            musicIcon.innerText = "x";
+            musicControl.classList.remove('rotating');
+        }
+        hasStarted = true;
+    }
+
+    // Déclencher au premier scroll ou clic
+    window.addEventListener('scroll', startMusic, { once: true });
+    window.addEventListener('click', startMusic, { once: true });
+    window.addEventListener('touchstart', startMusic, { once: true });
+
+    /* --- RESTE DU SCRIPT --- */
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
-        const size = Math.random() * 8 + 5;
+        const size = Math.random() * 12 + 8; // Taille augmentée pour visibilité
         petal.style.width = size + 'px';
         petal.style.height = size * 1.5 + 'px';
         petal.style.left = Math.random() * 100 + 'vw';
@@ -512,22 +558,16 @@
         document.body.appendChild(petal);
         setTimeout(() => petal.remove(), 7000);
     }
-    setInterval(createPetal, 450);
+    setInterval(createPetal, 350);
 
     function toggleFields(selectId, targetId) {
         const val = document.getElementById(selectId).value;
         const target = document.getElementById(targetId);
-        if (target) {
-            if (val === 'oui') {
-                target.classList.add('active');
-            } else {
-                target.classList.remove('active');
-                target.querySelectorAll('input').forEach(input => input.value = 0);
-            }
-        }
+        if (val === 'oui') target.classList.add('active');
+        else target.classList.remove('active');
     }
 
-    window.onload = function() {
+    window.onload = () => {
         toggleFields('pres_m', 'sec_m');
         toggleFields('pres_h', 'sec_h');
     };
@@ -543,6 +583,5 @@
         }, 1500);
     };
 </script>
-
 </body>
 </html>
