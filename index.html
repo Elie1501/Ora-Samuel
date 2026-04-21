@@ -17,7 +17,7 @@
         body, html {
             height: 100%;
             font-family: 'Montserrat', sans-serif;
-            background-color: #f4f1ea; /* Fond de destination (le papier marbré) */
+            background-color: #f4f1ea;
             overflow: hidden;
             color: #fff;
             perspective: 2000px;
@@ -70,6 +70,9 @@
             z-index: 11;
             text-align: center;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .welcome-txt {
@@ -130,6 +133,20 @@
             letter-spacing: 8px;
             border-color: var(--luxury-gold);
         }
+
+        /* Nouveau style pour le logo en bas */
+        .logo-footer {
+            margin-top: 40px;
+            width: clamp(80px, 12vw, 110px);
+            height: auto;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 8px rgba(227, 212, 182, 0.2));
+            transition: opacity 0.4s ease;
+        }
+
+        .logo-footer:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -150,12 +167,12 @@
         </div>
 
         <a href="#" onclick="turnPage(event)" class="enter-btn">Découvrir</a>
+
+        <img src="images/logo.png" alt="Logo de mariage" class="logo-footer">
     </div>
 </div>
 
 <script>
-    // Countdown ajusté au Dimanche 11 Octobre 2026 à 14h00
-    // Rappel : Mois 9 = Octobre en JS
     const weddingDate = new Date(2026, 9, 11, 14, 0, 0).getTime();
 
     function updateCountdown() {
@@ -168,14 +185,13 @@
             document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
             document.getElementById('seconds').innerText = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
         } else {
-            // Si la date est passée
             document.getElementById('days').innerText = "00";
             document.getElementById('hours').innerText = "00";
             document.getElementById('minutes').innerText = "00";
             document.getElementById('seconds').innerText = "00";
         }
     }
-    
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
