@@ -16,10 +16,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* On mélange l'image avec une couleur blanche pour l'estomper */
-            background-color: rgba(244, 241, 234, 0.65);
+            /* On baisse l'opacité blanche pour que le motif saute aux yeux sur tel */
+            background-color: rgba(244, 241, 234, 0.1);
             background-image: url('images/fond.jpg');
-            background-blend-mode: overlay; /* Mélange qui éclaircit et estompe */
+            background-blend-mode: overlay;
 
             background-attachment: fixed;
             background-position: center;
@@ -32,6 +32,17 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
             padding-bottom: 60px;
+        }
+
+        /* --- CORRECTIF MAJEUR MOBILE --- */
+        @media only screen and (max-device-width: 1024px) {
+            body {
+                background-attachment: scroll !important; /* Force l'affichage sur tel */
+                background-size: auto 100%; /* Évite le zoom excessif du tapis */
+            }
+            .parallax-section {
+                background-attachment: scroll !important;
+            }
         }
 
         @keyframes fadeInUp {
@@ -78,10 +89,6 @@
         .img-bateau { background-image: url('images/bateau.jpg'); }
         .img-alliance { background-image: url('images/regard.jpg'); }
 
-        @media only screen and (max-device-width: 1366px) {
-            .parallax-section, body { background-attachment: scroll; }
-        }
-
         .container {
             width: 100%;
             max-width: 600px;
@@ -127,9 +134,10 @@
 
         .event-section {
             padding: 50px 20px;
-            /* On garde une transparence légère pour le "glassmorphism" */
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(5px);
+            /* Transparence augmentée pour mobile */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(197, 160, 89, 0.15);
             margin-bottom: 20px;
             border-radius: 12px;
@@ -230,8 +238,6 @@
             margin: 0 -20px;
             border-top: 1px solid var(--gold);
         }
-
-        .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
 
         .form-label {
             display: block;
