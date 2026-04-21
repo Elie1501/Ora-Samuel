@@ -16,16 +16,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* On mélange l'image avec une couleur blanche pour l'estomper */
             background-color: rgba(244, 241, 234, 0.15);
             background-image: url('images/9877ecc04916e6a0ab488f920d9c964f.jpg');
-            background-blend-mode: overlay; /* Mélange qui éclaircit et estompe */
-
+            background-blend-mode: overlay;
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.5;
@@ -127,7 +124,6 @@
 
         .event-section {
             padding: 50px 20px;
-            /* On garde une transparence légère pour le "glassmorphism" */
             background: rgba(255, 255, 255, 0.45);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(197, 160, 89, 0.15);
@@ -284,7 +280,17 @@
         .gallery-item:first-child { grid-column: span 2; }
         .gallery-item img { width: 100%; display: block; }
 
-        footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
+        /* Style du Logo */
+        .rsvp-logo {
+            width: 90px;
+            height: auto;
+            margin: 0 auto 30px;
+            display: block;
+            opacity: 0.8;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        footer { padding: 20px 0 40px; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
         #music-control {
             position: fixed; bottom: 20px; right: 20px; z-index: 9999;
@@ -376,8 +382,10 @@
 
 <div class="container">
     <section class="rsvp-section" id="rsvp">
+        <img src="images/logo.png" alt="Logo O & S" class="rsvp-logo">
         <p class="label">R.S.V.P</p>
         <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
+        
         <form class="rsvp-form" id="rsvp-form">
             <div class="form-group">
                 <label class="form-label">Nom et Prénom</label>
