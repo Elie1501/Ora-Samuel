@@ -16,10 +16,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* On mélange l'image avec une couleur blanche pour l'estomper */
-            background-color: rgba(244, 241, 234, 0.15);
+            /* Suppression du flou et ajustement de l'estompage */
+            background-color: rgba(244, 241, 234, 0.1); 
             background-image: url('images/fond.jpg');
-            background-blend-mode: overlay; /* Mélange qui éclaircit et estompe */
+            background-blend-mode: overlay;
 
             background-attachment: fixed;
             background-position: center;
@@ -37,6 +37,13 @@
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CORRECTIF MOBILE --- */
+        @media only screen and (max-device-width: 1024px) {
+            body {
+                background-attachment: scroll !important;
+            }
         }
 
         .hero-image {
@@ -61,25 +68,6 @@
             min-height: 1.5em;
             letter-spacing: 1px;
             text-align: center;
-        }
-
-        .parallax-section {
-            width: 100%;
-            height: 40vh;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin: 20px 0;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-        }
-
-        .img-bateau { background-image: url('images/bateau.jpg'); }
-        .img-alliance { background-image: url('images/regard.jpg'); }
-
-        @media only screen and (max-device-width: 1366px) {
-            .parallax-section, body { background-attachment: scroll; }
         }
 
         .container {
@@ -127,9 +115,8 @@
 
         .event-section {
             padding: 50px 20px;
-            /* On garde une transparence légère pour le "glassmorphism" */
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(5px);
+            /* Suppression du flou (blur) pour une vue nette du fond */
+            background: rgba(255, 255, 255, 0.5); 
             border: 1px solid rgba(197, 160, 89, 0.15);
             margin-bottom: 20px;
             border-radius: 12px;
@@ -196,7 +183,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1.25rem;
-            color: #555;
+            color: #444;
             margin-bottom: 25px;
         }
 
@@ -225,22 +212,9 @@
 
         .rsvp-section {
             padding: 60px 20px;
-            background-color: rgba(242, 239, 233, 0.6);
-            backdrop-filter: blur(5px);
+            background-color: rgba(242, 239, 233, 0.4);
             margin: 0 -20px;
             border-top: 1px solid var(--gold);
-        }
-
-        .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
-
-        .form-label {
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 8px;
-            font-weight: 600;
         }
 
         .form-input, .form-select, .form-textarea {
@@ -253,9 +227,6 @@
             font-size: 0.95rem;
             outline: none;
         }
-
-        .hidden-fields { max-height: 0; overflow: hidden; transition: 0.5s; opacity: 0; }
-        .hidden-fields.active { max-height: 250px; opacity: 1; margin-bottom: 25px; }
 
         .submit-btn {
             display: block;
@@ -272,18 +243,6 @@
             font-weight: 600;
         }
 
-        .photo-gallery { padding: 60px 15px; }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 12px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .gallery-item { border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .gallery-item:first-child { grid-column: span 2; }
-        .gallery-item img { width: 100%; display: block; }
-
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
         #music-control {
@@ -292,6 +251,20 @@
             border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
+
+        .parallax-section {
+            width: 100%;
+            height: 40vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 20px 0;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+        .img-bateau { background-image: url('images/bateau.jpg'); }
+        .img-alliance { background-image: url('images/regard.jpg'); }
 
         .petal {
             position: fixed;
@@ -377,42 +350,9 @@
 <div class="container">
     <section class="rsvp-section" id="rsvp">
         <p class="label">R.S.V.P</p>
-        <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
+        <h2 class="event-title">Confirmation</h2>
         <form class="rsvp-form" id="rsvp-form">
-            <div class="form-group">
-                <label class="form-label">Nom et Prénom</label>
-                <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
-            </div>
-            <div class="form-group" style="margin-top:20px;">
-                <label class="form-label">Présence à la Mairie</label>
-                <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
-                    <option value="oui">Sera présent avec joie</option>
-                    <option value="non">Ne pourra pas assister</option>
-                </select>
-            </div>
-            <div id="sec_m" class="hidden-fields">
-                <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;"><label class="form-label">Adultes</label><input type="number" name="adultes_m" class="form-input" value="1"></div>
-                    <div style="flex:1;"><label class="form-label">Enfants</label><input type="number" name="enfants_m" class="form-input" value="0"></div>
-                </div>
-            </div>
-            <div class="form-group" style="margin-top:20px;">
-                <label class="form-label">Présence à la Houppa</label>
-                <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
-                    <option value="oui">Sera présent avec bonheur</option>
-                    <option value="non">Regrette de ne pas pouvoir</option>
-                </select>
-            </div>
-            <div id="sec_h" class="hidden-fields">
-                <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;"><label class="form-label">Adultes</label><input type="number" name="adultes_h" class="form-input" value="1"></div>
-                    <div style="flex:1;"><label class="form-label">Enfants</label><input type="number" name="enfants_h" class="form-input" value="0"></div>
-                </div>
-            </div>
-            <div class="form-group" style="margin-top:20px;">
-                <label class="form-label">Un petit mot pour les mariés</label>
-                <textarea name="message" class="form-textarea" placeholder="Vos vœux de bonheur..."></textarea>
-            </div>
+            <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
             <button type="submit" class="submit-btn" id="subBtn">Envoyer ma réponse</button>
         </form>
     </section>
@@ -445,17 +385,8 @@
         else music.pause();
     }
 
-    function toggleFields(selectId, targetId) {
-        const val = document.getElementById(selectId).value;
-        const target = document.getElementById(targetId);
-        if (val === 'oui') target.classList.add('active');
-        else target.classList.remove('active');
-    }
-
     window.onload = () => {
         typeWriter();
-        toggleFields('pres_m', 'sec_m');
-        toggleFields('pres_h', 'sec_h');
     };
 
     function createPetal() {
@@ -469,12 +400,6 @@
         setTimeout(() => petal.remove(), 7000);
     }
     setInterval(createPetal, 450);
-
-    document.getElementById('rsvp-form').onsubmit = function(e) {
-        e.preventDefault();
-        document.getElementById('subBtn').innerText = "ENVOI EN COURS...";
-        setTimeout(() => { alert('Merci ! Votre réponse a bien été enregistrée.'); document.getElementById('subBtn').innerText = "ENVOYÉ !"; }, 1500);
-    };
 </script>
 </body>
 </html>
