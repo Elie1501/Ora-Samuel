@@ -16,14 +16,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #f4f1ea;
-            background-image:
-                linear-gradient(35deg, transparent 20%, rgba(197, 160, 89, 0.04) 21%, rgba(197, 160, 89, 0.06) 22%, transparent 25%),
-                linear-gradient(125deg, transparent 65%, rgba(197, 160, 89, 0.07) 68%, rgba(197, 160, 89, 0.1) 70%, transparent 55%),
-                linear-gradient(170deg, transparent 80%, rgba(197, 160, 89, 0.03) 82%, transparent 45%),
-                linear-gradient(15deg, transparent 10%, rgba(0, 0, 0, 0.02) 12%, transparent 15%),
-                linear-gradient(45deg, transparent 40%, rgba(0, 0, 0, 0.01) 45%, transparent 90%);
+            /* On mélange l'image avec une couleur blanche pour l'estomper */
+            background-color: rgba(244, 241, 234, 0.85);
+            background-image: url('images/fond.jpg');
+            background-blend-mode: overlay; /* Mélange qui éclaircit et estompe */
+
             background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.5;
@@ -47,7 +49,18 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, #f4f1ea 95%);
+            background: linear-gradient(to bottom, transparent 50%, rgba(244, 241, 234, 0.4) 95%);
+        }
+
+        .intro-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--gold);
+            margin: 20px 0 10px;
+            min-height: 1.5em;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
         .parallax-section {
@@ -58,13 +71,15 @@
             background-repeat: no-repeat;
             background-size: cover;
             margin: 20px 0;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
         }
 
         .img-bateau { background-image: url('images/bateau.jpg'); }
         .img-alliance { background-image: url('images/regard.jpg'); }
 
         @media only screen and (max-device-width: 1366px) {
-            .parallax-section { background-attachment: scroll; }
+            .parallax-section, body { background-attachment: scroll; }
         }
 
         .container {
@@ -80,11 +95,10 @@
             font-size: 3.2rem;
             font-weight: 300;
             font-style: italic;
-            margin: -25px 0 20px;
-            padding-left: 55px;
-            position: relative;
+            margin: 0 0 20px;
             animation: fadeInUp 1.2s ease-out;
             color: var(--text-dark);
+            padding-left: 65px; /* Ajuste le nombre de pixels selon tes goûts */
         }
 
         .luxury-divider {
@@ -113,11 +127,13 @@
         }
 
         .event-section {
-            padding: 50px 0;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(2px);
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            padding: 50px 20px;
+            /* On garde une transparence légère pour le "glassmorphism" */
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(197, 160, 89, 0.15);
             margin-bottom: 20px;
+            border-radius: 12px;
         }
 
         .label {
@@ -133,7 +149,6 @@
             font-size: 2.4rem;
             font-weight: 300;
             margin-bottom: 10px;
-            color: var(--text-dark);
         }
 
         .hebrew-banner {
@@ -142,14 +157,13 @@
             margin: 0 auto 30px;
             display: block;
             mix-blend-mode: multiply;
-            filter: contrast(1.1);
         }
 
         .families-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin: 30px 0 20px;
+            margin: 30px auto 20px;
             width: 100%;
         }
 
@@ -169,16 +183,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-weight: 600;
             font-size: 1.05rem;
-            line-height: 1.2;
-            margin-bottom: 4px;
-        }
-
-        .announcement-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            font-style: italic;
-            color: #555;
-            margin: 0 0 40px;
+            line-height: 1.3;
         }
 
         .hebrew {
@@ -188,23 +193,13 @@
             color: var(--gold);
         }
 
-        .details {
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
         .address {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1.25rem;
-            color: #666;
+            color: #555;
             margin-bottom: 25px;
         }
-
-        .btn-group { display: flex; gap: 10px; justify-content: center; }
 
         .btn {
             padding: 12px 20px;
@@ -214,9 +209,7 @@
             font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            min-width: 110px;
-            cursor: pointer;
-            background: transparent;
+            background: rgba(255,255,255,0.4);
             transition: 0.3s;
         }
 
@@ -227,15 +220,16 @@
             border-radius: 4px;
             padding: 25px 15px;
             margin: 35px auto 20px;
-            max-width: 90%;
-            border-left: 1px solid var(--gold);
-            border-right: 1px solid var(--gold);
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
         }
 
         .rsvp-section {
             padding: 60px 20px;
-            background-color: rgba(242, 239, 233, 0.8);
+            background-color: rgba(242, 239, 233, 0.6);
+            backdrop-filter: blur(5px);
             margin: 0 -20px;
+            border-top: 1px solid var(--gold);
         }
 
         .rsvp-form { max-width: 450px; margin: 0 auto; text-align: left; }
@@ -254,26 +248,15 @@
             width: 100%;
             padding: 12px 0;
             border: none;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid var(--gold);
             background: transparent;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.95rem;
-            color: var(--text-dark);
             outline: none;
         }
 
-        .hidden-fields {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease-in-out;
-            opacity: 0;
-        }
-
-        .hidden-fields.active {
-            max-height: 250px;
-            opacity: 1;
-            margin-bottom: 25px;
-        }
+        .hidden-fields { max-height: 0; overflow: hidden; transition: 0.5s; opacity: 0; }
+        .hidden-fields.active { max-height: 250px; opacity: 1; margin-bottom: 25px; }
 
         .submit-btn {
             display: block;
@@ -291,7 +274,6 @@
         }
 
         .photo-gallery { padding: 60px 15px; }
-
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -299,64 +281,52 @@
             max-width: 500px;
             margin: 0 auto;
         }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
+        .gallery-item { border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .gallery-item:first-child { grid-column: span 2; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .gallery-item img { width: 100%; display: block; }
 
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
+        #music-control {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+
         .petal {
             position: fixed;
-            background: linear-gradient(135deg, #fdfbf7 0%, #c5a059 100%);
+            background: linear-gradient(135deg, #fff 0%, #c5a059 100%);
             border-radius: 150% 0 150% 0;
-            opacity: 0.3;
+            opacity: 0.4;
             pointer-events: none;
             z-index: 100;
         }
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
-
-        #music-control {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
-            border: 1px solid var(--gold); width: 45px; height: 45px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
-        .music-icon-svg { width: 20px; height: 20px; fill: var(--gold); }
-        #pause-icon { display: none; }
-        .playing #play-icon { display: none; }
-        .playing #pause-icon { display: block; }
     </style>
 </head>
 <body>
 
-<audio id="bg-music" src="musique2.mp3" loop></audio>
+<audio id="bg-music" src="musique.mp3" loop></audio>
 
 <div id="music-control" onclick="toggleMusic()">
-    <svg id="play-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    <svg id="pause-icon" class="music-icon-svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="#C5A059"><path d="M8 5v14l11-7z"/></svg>
 </div>
 
 <div class="hero-image"><div class="hero-overlay"></div></div>
 
 <div class="container">
+    <div id="typewriter" class="intro-text"></div>
     <h1 class="main-names">Ora & Samuel</h1>
     <div class="luxury-divider"><span class="divider-symbol">✧</span></div>
 
-    <section class="event-section" style="border-top: none;">
+    <section class="event-section">
         <p class="label">Union Civile</p>
         <h2 class="event-title">La Mairie</h2>
-        <p class="details">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
+        <p style="font-weight: 600; letter-spacing: 1px;">DIMANCHE 11 OCTOBRE 2026 À 14H00</p>
         <p class="address">Mairie de Sarcelles Village<br>3 rue de la Résistance, 95200 Sarcelles</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
-            <a href="#" class="btn">Calendrier</a>
         </div>
     </section>
 </div>
@@ -368,6 +338,7 @@
         <img src="images/hebreu2.png" alt="Bénédiction" class="hebrew-banner">
         <p class="label">Cérémonie Religieuse</p>
         <h2 class="event-title">Houppa & Soirée</h2>
+
         <div class="families-wrapper">
             <div class="family-left">
                 <p class="family-title">Famille NABET</p>
@@ -380,19 +351,19 @@
                 <p class="parents-names">M. ATTARD</p>
             </div>
         </div>
+
         <p class="announcement-text">Ont la joie de vous faire part du mariage de leurs enfants</p>
         <div class="hebrew">אורה & שמואל</div>
-        <p class="details">JEUDI 15 OCTOBRE 2026 À 17H30</p>
+        <p style="font-weight: 600; letter-spacing: 1px;">JEUDI 15 OCTOBRE 2026 À 17H30</p>
         <p class="address">Au White<br>68 rue Louis Ampère, 93330 Neuilly sur Marne</p>
         <div class="btn-group">
             <a href="https://waze.com/ul?q=Le+White+Neuilly+sur+Marne" class="btn" target="_blank">Waze</a>
-            <a href="#" class="btn">Calendrier</a>
         </div>
         <div class="tribute-card">
-            <p style="font-style: italic; font-weight: 600; margin-bottom: 10px;">Une pensée très émue pour nos disparus</p>
-            <p style="color: #555; line-height: 1.6; font-size: 1rem;">
+            <p style="font-style: italic; font-weight: 600; margin-bottom: 10px;">Une pensée pour nos grands-parents disparus</p>
+            <p style="color: #444; line-height: 1.6; font-size: 0.9rem;">
                 Liliane Ascoli, Alfred Ascoli, Georges Attard, Georgette Attard,<br>
-                et nos grands-parents Jean-Jacques Nabet et Jossiane Nabet
+                Jean-Jacques Nabet et Josiane Nabet
             </p>
         </div>
     </section>
@@ -409,8 +380,8 @@
                 <label class="form-label">Nom et Prénom</label>
                 <input type="text" name="nom" class="form-input" placeholder="Votre réponse" required>
             </div>
-            <div class="form-group">
-                <label class="form-label" style="margin-top:20px;">Présence à la Mairie</label>
+            <div class="form-group" style="margin-top:20px;">
+                <label class="form-label">Présence à la Mairie</label>
                 <select name="pres_m" id="pres_m" class="form-select" onchange="toggleFields('pres_m', 'sec_m')">
                     <option value="oui">Sera présent avec joie</option>
                     <option value="non">Ne pourra pas assister</option>
@@ -418,18 +389,12 @@
             </div>
             <div id="sec_m" class="hidden-fields">
                 <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;">
-                        <label class="form-label">Adultes</label>
-                        <input type="number" name="adultes_m" class="form-input" value="1" min="0">
-                    </div>
-                    <div style="flex:1;">
-                        <label class="form-label">Enfants</label>
-                        <input type="number" name="enfants_m" class="form-input" value="0" min="0">
-                    </div>
+                    <div style="flex:1;"><label class="form-label">Adultes</label><input type="number" name="adultes_m" class="form-input" value="1"></div>
+                    <div style="flex:1;"><label class="form-label">Enfants</label><input type="number" name="enfants_m" class="form-input" value="0"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="form-label" style="margin-top:20px;">Présence à la Houppa</label>
+            <div class="form-group" style="margin-top:20px;">
+                <label class="form-label">Présence à la Houppa</label>
                 <select name="pres_h" id="pres_h" class="form-select" onchange="toggleFields('pres_h', 'sec_h')">
                     <option value="oui">Sera présent avec bonheur</option>
                     <option value="non">Regrette de ne pas pouvoir</option>
@@ -437,14 +402,8 @@
             </div>
             <div id="sec_h" class="hidden-fields">
                 <div style="display:flex; gap:15px; margin-top:10px;">
-                    <div style="flex:1;">
-                        <label class="form-label">Adultes</label>
-                        <input type="number" name="adultes_h" class="form-input" value="1" min="0">
-                    </div>
-                    <div style="flex:1;">
-                        <label class="form-label">Enfants</label>
-                        <input type="number" name="enfants_h" class="form-input" value="0" min="0">
-                    </div>
+                    <div style="flex:1;"><label class="form-label">Adultes</label><input type="number" name="adultes_h" class="form-input" value="1"></div>
+                    <div style="flex:1;"><label class="form-label">Enfants</label><input type="number" name="enfants_h" class="form-input" value="0"></div>
                 </div>
             </div>
             <div class="form-group" style="margin-top:20px;">
@@ -467,34 +426,20 @@
 </div>
 
 <script>
-    const music = document.getElementById('bg-music');
-    const musicControl = document.getElementById('music-control');
-    let hasStarted = false;
-
-    // Fonction pour lancer la musique au premier scroll/touch
-    function startMusic() {
-        if (!hasStarted) {
-            music.play().then(() => {
-                musicControl.classList.add('playing');
-                hasStarted = true;
-                window.removeEventListener('scroll', startMusic);
-                window.removeEventListener('touchstart', startMusic);
-            }).catch(e => console.log("Attente interaction..."));
+    const introText = "Nous avons hâte de célébrer ce moment avec vous...";
+    let i = 0;
+    function typeWriter() {
+        if (i < introText.length) {
+            document.getElementById('typewriter').innerHTML += introText.charAt(i);
+            i++;
+            setTimeout(typeWriter, 80);
         }
     }
 
-    window.addEventListener('scroll', startMusic);
-    window.addEventListener('touchstart', startMusic);
-
+    const music = document.getElementById('bg-music');
     function toggleMusic() {
-        if (music.paused) { 
-            music.play(); 
-            musicControl.classList.add('playing'); 
-            hasStarted = true;
-        } else { 
-            music.pause(); 
-            musicControl.classList.remove('playing'); 
-        }
+        if (music.paused) music.play();
+        else music.pause();
     }
 
     function toggleFields(selectId, targetId) {
@@ -505,6 +450,7 @@
     }
 
     window.onload = () => {
+        typeWriter();
         toggleFields('pres_m', 'sec_m');
         toggleFields('pres_h', 'sec_h');
     };
@@ -512,11 +458,9 @@
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
-        const size = Math.random() * 12 + 8;
-        petal.style.width = size + 'px';
-        petal.style.height = size * 1.5 + 'px';
+        petal.style.width = Math.random() * 12 + 8 + 'px';
+        petal.style.height = '15px';
         petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.top = '-20px';
         petal.style.animation = `fall ${Math.random() * 3 + 4}s linear forwards`;
         document.body.appendChild(petal);
         setTimeout(() => petal.remove(), 7000);
@@ -525,9 +469,8 @@
 
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
-        const btn = document.getElementById('subBtn');
-        btn.innerText = "ENVOI EN COURS...";
-        setTimeout(() => { alert('Merci ! Votre réponse a bien été enregistrée.'); btn.innerText = "ENVOYÉ !"; }, 1500);
+        document.getElementById('subBtn').innerText = "ENVOI EN COURS...";
+        setTimeout(() => { alert('Merci ! Votre réponse a bien été enregistrée.'); document.getElementById('subBtn').innerText = "ENVOYÉ !"; }, 1500);
     };
 </script>
 </body>
