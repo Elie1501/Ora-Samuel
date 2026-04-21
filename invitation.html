@@ -23,8 +23,8 @@
             
             background-attachment: fixed;
             background-position: center top;
-            background-repeat: repeat-y; /* Répète l'image proprement au lieu de la zoomer */
-            background-size: 100% auto; /* L'image garde sa taille normale en largeur */
+            background-repeat: repeat-y; 
+            background-size: 100% auto; 
 
             color: var(--text-dark);
             font-family: 'Montserrat', sans-serif;
@@ -34,13 +34,12 @@
             padding-bottom: 60px;
         }
 
-        /* --- CORRECTIF SPÉCIAL MOBILE --- */
+        /* --- CORRECTIF MOBILE --- */
         @media only screen and (max-width: 768px) {
             body {
-                background-attachment: scroll !important; /* Fixe le bug Safari/Chrome mobile */
-                background-size: 100% auto !important; /* Empêche le zoom dégradant */
+                background-attachment: scroll !important;
+                background-size: 100% auto !important;
             }
-            /* Empêche le zoom automatique de l'iPhone quand on clique sur un champ */
             .form-input, .form-select, .form-textarea {
                 font-size: 16px !important; 
             }
@@ -270,6 +269,19 @@
             font-weight: 600;
         }
 
+        /* --- GALERIE PHOTO --- */
+        .photo-gallery { padding: 60px 15px; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .gallery-item { border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .gallery-item:first-child { grid-column: span 2; }
+        .gallery-item img { width: 100%; display: block; object-fit: cover; }
+
         footer { padding: 40px 0; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
 
         #music-control {
@@ -401,6 +413,14 @@
             </div>
             <button type="submit" class="submit-btn" id="subBtn">Envoyer ma réponse</button>
         </form>
+    </section>
+
+    <section class="photo-gallery">
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="images/conduite.jpg"></div>
+            <div class="gallery-item"><img src="images/haut.jpg"></div>
+            <div class="gallery-item"><img src="images/part.jpg"></div>
+        </div>
     </section>
 
     <footer>O & S — 2026</footer>
