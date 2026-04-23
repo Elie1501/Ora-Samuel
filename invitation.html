@@ -280,7 +280,6 @@
         .gallery-item:first-child { grid-column: span 2; }
         .gallery-item img { width: 100%; display: block; }
 
-        /* Style du Logo */
         .rsvp-logo {
             width: 90px;
             height: auto;
@@ -312,10 +311,12 @@
 </head>
 <body>
 
-<audio id="bg-music" src="musique2.mp3" loop></audio>
+<audio id="bg-music" src="musique2.mp3" loop preload="auto"></audio>
 
-<div id="music-control" onclick="toggleMusic()">
-    <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="#C5A059"><path d="M8 5v14l11-7z"/></svg>
+<div id="music-control" onclick="toggleMusic(event)">
+    <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="#C5A059">
+        <path id="music-path" d="M8 5v14l11-7z"/>
+    </svg>
 </div>
 
 <div class="hero-image"><div class="hero-overlay"></div></div>
@@ -385,7 +386,7 @@
         <img src="images/logo.png" alt="Logo O & S" class="rsvp-logo">
         <p class="label">R.S.V.P</p>
         <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
-        
+
         <form class="rsvp-form" id="rsvp-form">
             <div class="form-group">
                 <label class="form-label">Nom et Prénom</label>
@@ -438,21 +439,51 @@
 
 <script>
     const introText = "Nous avons hâte de célébrer ce moment avec vous...";
-    let i = 0;
+    let idx = 0;
+    const music = document.getElementById('bg-music');
+    const musicPath = document.getElementById('music-path');
+
+    // Effet machine à écrire
     function typeWriter() {
-        if (i < introText.length) {
-            document.getElementById('typewriter').innerHTML += introText.charAt(i);
-            i++;
+        if (idx < introText.length) {
+            document.getElementById('typewriter').innerHTML += introText.charAt(idx);
+            idx++;
             setTimeout(typeWriter, 80);
         }
     }
 
-    const music = document.getElementById('bg-music');
-    function toggleMusic() {
-        if (music.paused) music.play();
-        else music.pause();
+    // GESTION DE LA MUSIQUE AU PREMIER TOUCHER/CLIC
+    function initAudio() {
+        music.play().then(() => {
+            updateMusicIcon();
+            // Supprime les écouteurs globaux une fois lancé
+            document.removeEventListener('click', initAudio);
+            document.removeEventListener('touchstart', initAudio);
+        }).catch(e => console.log("En attente d'interaction utilisateur..."));
     }
 
+    document.addEventListener('click', initAudio);
+    document.addEventListener('touchstart', initAudio);
+
+    function toggleMusic(e) {
+        if(e) e.stopPropagation(); // Empêche le déclenchement des events parents
+        if (music.paused) {
+            music.play();
+        } else {
+            music.pause();
+        }
+        updateMusicIcon();
+    }
+
+    function updateMusicIcon() {
+        if (music.paused) {
+            musicPath.setAttribute('d', 'M8 5v14l11-7z'); // Icône Play
+        } else {
+            musicPath.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // Icône Pause
+        }
+    }
+
+    // Affichage conditionnel des champs RSVP
     function toggleFields(selectId, targetId) {
         const val = document.getElementById(selectId).value;
         const target = document.getElementById(targetId);
@@ -466,6 +497,7 @@
         toggleFields('pres_h', 'sec_h');
     };
 
+    // Animation des pétales
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
@@ -478,10 +510,14 @@
     }
     setInterval(createPetal, 450);
 
+    // Simulation d'envoi RSVP
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
         document.getElementById('subBtn').innerText = "ENVOI EN COURS...";
-        setTimeout(() => { alert('Merci ! Votre réponse a bien été enregistrée.'); document.getElementById('subBtn').innerText = "ENVOYÉ !"; }, 1500);
+        setTimeout(() => {
+            alert('Merci ! Votre réponse a bien été enregistrée.');
+            document.getElementById('subBtn').innerText = "ENVOYÉ !";
+        }, 1500);
     };
 </script>
 </body>
