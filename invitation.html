@@ -280,17 +280,6 @@
         .gallery-item:first-child { grid-column: span 2; }
         .gallery-item img { width: 100%; display: block; }
 
-        .rsvp-logo {
-            width: 90px;
-            height: auto;
-            margin: 0 auto 30px;
-            display: block;
-            opacity: 0.8;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-
-        footer { padding: 20px 0 40px; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
-
         #music-control {
             position: fixed; bottom: 20px; right: 20px; z-index: 9999;
             background: rgba(255, 255, 255, 0.9);
@@ -307,15 +296,17 @@
             z-index: 100;
         }
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+
+        footer { padding: 20px 0 40px; font-size: 0.7rem; letter-spacing: 3px; text-align: center; color: var(--gold); }
     </style>
 </head>
 <body>
 
 <audio id="bg-music" src="musique2.mp3" loop preload="auto"></audio>
 
-<div id="music-control" onclick="toggleMusic(event)">
-    <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="#C5A059">
-        <path id="music-path" d="M8 5v14l11-7z"/>
+<div id="music-control">
+    <svg id="music-svg" width="20" height="20" viewBox="0 0 24 24" fill="#C5A059">
+        <path id="music-icon" d="M8 5v14l11-7z"/>
     </svg>
 </div>
 
@@ -383,10 +374,10 @@
 
 <div class="container">
     <section class="rsvp-section" id="rsvp">
-        <img src="images/logo.png" alt="Logo O & S" class="rsvp-logo">
+        <img src="images/logo.png" alt="Logo O & S" class="rsvp-logo" style="width: 90px; height: auto; margin: 0 auto 30px; display: block;">
         <p class="label">R.S.V.P</p>
         <h2 class="event-title" style="font-size: 1.8rem; margin-bottom: 35px;">Confirmation</h2>
-
+        
         <form class="rsvp-form" id="rsvp-form">
             <div class="form-group">
                 <label class="form-label">Nom et Prénom</label>
@@ -438,52 +429,53 @@
 </div>
 
 <script>
-    const introText = "Nous avons hâte de célébrer ce moment avec vous...";
-    let idx = 0;
+    // Config Musique
     const music = document.getElementById('bg-music');
-    const musicPath = document.getElementById('music-path');
+    const musicBtn = document.getElementById('music-control');
+    const musicIcon = document.getElementById('music-icon');
+    const playPath = "M8 5v14l11-7z";
+    const pausePath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-    // Effet machine à écrire
+    // Fonction de lancement automatique (contournement restrictions navigateur)
+    function handleAutoPlay() {
+        music.play().then(() => {
+            musicIcon.setAttribute('d', pausePath);
+            // On retire les écouteurs une fois que ça a démarré
+            window.removeEventListener('click', handleAutoPlay);
+            window.removeEventListener('touchstart', handleAutoPlay);
+            window.removeEventListener('scroll', handleAutoPlay);
+        }).catch(e => console.log("Attente interaction..."));
+    }
+
+    // On écoute tout mouvement ou clic sur la page
+    window.addEventListener('click', handleAutoPlay);
+    window.addEventListener('touchstart', handleAutoPlay);
+    window.addEventListener('scroll', handleAutoPlay);
+
+    // Contrôle manuel Play/Pause
+    musicBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (music.paused) {
+            music.play();
+            musicIcon.setAttribute('d', pausePath);
+        } else {
+            music.pause();
+            musicIcon.setAttribute('d', playPath);
+        }
+    });
+
+    // Machine à écrire
+    const introText = "Nous avons hâte de célébrer ce moment avec vous...";
+    let i = 0;
     function typeWriter() {
-        if (idx < introText.length) {
-            document.getElementById('typewriter').innerHTML += introText.charAt(idx);
-            idx++;
+        if (i < introText.length) {
+            document.getElementById('typewriter').innerHTML += introText.charAt(i);
+            i++;
             setTimeout(typeWriter, 80);
         }
     }
 
-    // GESTION DE LA MUSIQUE AU PREMIER TOUCHER/CLIC
-    function initAudio() {
-        music.play().then(() => {
-            updateMusicIcon();
-            // Supprime les écouteurs globaux une fois lancé
-            document.removeEventListener('click', initAudio);
-            document.removeEventListener('touchstart', initAudio);
-        }).catch(e => console.log("En attente d'interaction utilisateur..."));
-    }
-
-    document.addEventListener('click', initAudio);
-    document.addEventListener('touchstart', initAudio);
-
-    function toggleMusic(e) {
-        if(e) e.stopPropagation(); // Empêche le déclenchement des events parents
-        if (music.paused) {
-            music.play();
-        } else {
-            music.pause();
-        }
-        updateMusicIcon();
-    }
-
-    function updateMusicIcon() {
-        if (music.paused) {
-            musicPath.setAttribute('d', 'M8 5v14l11-7z'); // Icône Play
-        } else {
-            musicPath.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z'); // Icône Pause
-        }
-    }
-
-    // Affichage conditionnel des champs RSVP
+    // Gestion RSVP champs masqués
     function toggleFields(selectId, targetId) {
         const val = document.getElementById(selectId).value;
         const target = document.getElementById(targetId);
@@ -491,13 +483,7 @@
         else target.classList.remove('active');
     }
 
-    window.onload = () => {
-        typeWriter();
-        toggleFields('pres_m', 'sec_m');
-        toggleFields('pres_h', 'sec_h');
-    };
-
-    // Animation des pétales
+    // Pétales qui tombent
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
@@ -510,13 +496,20 @@
     }
     setInterval(createPetal, 450);
 
-    // Simulation d'envoi RSVP
+    // Initialisation
+    window.onload = () => {
+        typeWriter();
+        toggleFields('pres_m', 'sec_m');
+        toggleFields('pres_h', 'sec_h');
+    };
+
+    // Form RSVP
     document.getElementById('rsvp-form').onsubmit = function(e) {
         e.preventDefault();
         document.getElementById('subBtn').innerText = "ENVOI EN COURS...";
-        setTimeout(() => {
-            alert('Merci ! Votre réponse a bien été enregistrée.');
-            document.getElementById('subBtn').innerText = "ENVOYÉ !";
+        setTimeout(() => { 
+            alert('Merci ! Votre réponse a bien été enregistrée.'); 
+            document.getElementById('subBtn').innerText = "ENVOYÉ !"; 
         }, 1500);
     };
 </script>
