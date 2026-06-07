@@ -334,6 +334,17 @@
             <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+Village" class="btn" target="_blank">Waze</a>
         </div>
     </section>
+
+    <!-- NOUVEAU BLOC : LE HENNÉ -->
+    <section class="event-section">
+        <p class="label">Célébration</p>
+        <h2 class="event-title">Le Henné</h2>
+        <p style="font-weight: 600; letter-spacing: 1px;">SUIVI DE LA MAIRIE À 14H30</p>
+        <p class="address">Centre Berechit Sarcelles<br>Place Rav Israël, 95200 Sarcelles, France</p>
+        <div class="btn-group">
+            <a href="https://waze.com/ul?q=Centre+Berechit+Sarcelles+Place+Rav+Israel" class="btn" target="_blank">Waze</a>
+        </div>
+    </section>
 </div>
 
 <div class="parallax-section img-bateau"></div>
@@ -494,15 +505,12 @@
         petal.style.width = Math.random() * 12 + 8 + 'px';
         petal.style.height = '15px';
         petal.style.left = Math.random() * 100 + 'vw';
-        // Durée aléatoire pour un effet plus naturel
         const duration = Math.random() * 3 + 4;
         petal.style.animation = `fall ${duration}s linear forwards`;
         document.body.appendChild(petal);
 
-        // Suppression après l'animation
         setTimeout(() => petal.remove(), duration * 1000);
     }
-    // Lancement de la pluie de pétales
     setInterval(createPetal, 450);
 
     // Initialisation
